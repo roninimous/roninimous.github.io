@@ -1,0 +1,40 @@
+h1 {
+	background: 				
+	-webkit-linear-gradient(135deg, rgb(94, 102, 255), rgb(255, 72, 72));
+	-webkit-background-clip:	text;
+	font-size:					72px;
+	-webkit-text-fill-color:	transparent;
+}
+
+body {
+	background: linear-gradient(#152238, black);
+	width: 100%;
+	font-family: 'rubik';
+}
+
+html {
+	height: 100%;
+}
+
+img {
+	border-radius: 20%;
+	margin: 5px;
+  }
+
+.zoom:hover {
+	transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+	border:1px solid rgb(94, 102, 255);
+}
+
+.arrow{
+	position: relative;
+	top: 0;
+	transition: top ease 0.3s;
+  }
+.arrow:hover {
+	top: -10px;
+  }
+.arrow:active {
+	/* top: -10px; */
+	transform: scale(0.9);
+}
