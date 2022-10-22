@@ -4,6 +4,7 @@ h1 {
 	-webkit-background-clip: text;
 	font-size: 72px;
 	-webkit-text-fill-color: transparent;
+	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 body {
@@ -46,11 +47,14 @@ footer {
 	/* display: block; */
 	text-align: center;
   	padding: 3px;
-  	background: 				
+	background-color: rgba(0, 0, 0, 0.8);
+  	/* background:
 	-webkit-linear-gradient(135deg, rgb(0, 13, 255), rgb(93, 255, 72));
 	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+	-webkit-text-fill-color: transparent; */
 	position: fixed;
   	bottom: 0;
+	margin-bottom: -15px;
 	width: 100%;
+	color:white;
   }
