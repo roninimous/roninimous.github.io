@@ -1,93 +1,95 @@
 h1 {
-	background: 				
-	-webkit-linear-gradient(135deg, rgb(94, 102, 255), rgb(255, 72, 72));
-	-webkit-background-clip: text;
-	font-size: 72px;
-	-webkit-text-fill-color: transparent;
-	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+  background: -webkit-linear-gradient(
+    135deg,
+    rgb(94, 102, 255),
+    rgb(255, 72, 72)
+  );
+  -webkit-background-clip: text;
+  font-size: 72px;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
-goallan{
-	background: 				
-	-webkit-linear-gradient(135deg, rgb(94, 255, 129), rgb(255, 72, 72));
-	-webkit-background-clip: text;
-	font-size: 72px;
-	-webkit-text-fill-color: transparent;
-	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+goallan {
+  background: -webkit-linear-gradient(
+    135deg,
+    rgb(94, 255, 129),
+    rgb(255, 72, 72)
+  );
+  -webkit-background-clip: text;
+  font-size: 72px;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 body {
-	/* background: linear-gradient(#e3f2fd,#406097, black); */
-	background: #fff;
+  /* background: linear-gradient(#e3f2fd,#406097, black); */
+  background: #EEF0F4;
 
-	width: 100%;
-	font-family: 'rubik';
+  width: 100%;
+  font-family: "rubik";
 }
 
 html {
-	height: 100%;
+  height: 100%;
 }
 
 img {
-	border-radius: 20px;
-	margin: 3px;
-  }
-
-.zoom:hover {
-	transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-	border:1px solid rgb(94, 102, 255);
+  border-radius: 20px;
+  margin: 3px;
 }
 
-.arrow{
-	position: relative;
-	top: 0;
-	transition: top ease 0.3s;
-  }
+.zoom:hover {
+  transform: scale(
+    1.2
+  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  border: 1px solid rgb(94, 102, 255);
+}
+
+.arrow {
+  position: relative;
+  top: 0;
+  transition: top ease 0.3s;
+}
 .arrow:hover {
-	top: -10px;
-	box-shadow:  3px 3px 3px rgba(0, 0, 0, 0.5);
-             
-  }
+  top: -10px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
 .arrow:active {
-	/* top: -10px; */
-	transform: scale(0.9);
-	box-shadow:  3px 3px 3px rgb(17, 255, 156);
+  /* top: -10px; */
+  transform: scale(0.9);
+  box-shadow: 3px 3px 3px rgb(17, 255, 156);
 }
 
 footer {
-	/* display: block; */
-	text-align: center;
-  	padding: 3px;
-	background-color: rgba(0, 0, 0, 0.8);
-  	/* background:
+  /* display: block; */
+  text-align: center;
+  padding: 3px;
+  background-color: rgba(0, 0, 0, 0.8);
+  /* background:
 	-webkit-linear-gradient(135deg, rgb(0, 13, 255), rgb(93, 255, 72));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent; */
-	position: fixed;
-  	bottom: 0;
-	margin-bottom: -15px;
-	width: 100%;
-	color:white;
-  }
+  position: fixed;
+  bottom: 0;
+  margin-bottom: -15px;
+  width: 100%;
+  color: white;
+}
 
-  .imgcenter
-{
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		width: 50%;
-	  
-  }
+.imgcenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
-
-.testNeumorphism{
-	/* border-radius: 50px;
+.testNeumorphism {
+  /* border-radius: 50px;
 background: #ff8647;
 box-shadow:  20px 20px 60px #d9723c,
              -20px -20px 60px #ff9a52; */
-
-			 border-radius: 50px;
-			 background: #a8c6fe;
-			 box-shadow:  6px 6px 12px #9cb8ec,
-						  -6px -6px 12px #b4d4ff;
+			 background: linear-gradient(145deg, #FFFFFF, #C4C6C9);
+border-radius: 15px;
+box-shadow: inset 2.7px 2.7px 15px #9FA1A3, inset -2.7px -2.7px 15px #FFFFFF;
 }
