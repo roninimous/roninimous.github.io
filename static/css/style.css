@@ -7,8 +7,19 @@ h1 {
 	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
+goallan{
+	background: 				
+	-webkit-linear-gradient(135deg, rgb(94, 255, 129), rgb(255, 72, 72));
+	-webkit-background-clip: text;
+	font-size: 72px;
+	-webkit-text-fill-color: transparent;
+	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
 body {
-	background: linear-gradient(#e3f2fd,#406097, black);
+	/* background: linear-gradient(#e3f2fd,#406097, black); */
+	background: #fff;
+
 	width: 100%;
 	font-family: 'rubik';
 }
@@ -67,3 +78,16 @@ footer {
 		width: 50%;
 	  
   }
+
+
+.testNeumorphism{
+	/* border-radius: 50px;
+background: #ff8647;
+box-shadow:  20px 20px 60px #d9723c,
+             -20px -20px 60px #ff9a52; */
+
+			 border-radius: 50px;
+			 background: #a8c6fe;
+			 box-shadow:  6px 6px 12px #9cb8ec,
+						  -6px -6px 12px #b4d4ff;
+}
