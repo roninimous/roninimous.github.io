@@ -92,7 +92,7 @@
             height="75"
         /></a>
 
-        <a href="https://instagram.com/goallanservices" target="_blank">
+        <a onclick="document.location.href = getGoallanIG()" target="_blank">
           <img
             class="arrow"
             border="0"
@@ -164,6 +164,26 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      function getGoallanIG() {
+        var userAgent = window.navigator.userAgent,
+          platform = window.navigator.platform,
+          macosPlatforms = ["Macintosh", "MacIntel", "MacPPC", "Mac68K"],
+          windowsPlatforms = ["Win32", "Win64", "Windows", "WinCE"],
+          iosPlatforms = ["iPhone", "iPad", "iPod"],
+          os = null;
+
+        if (iosPlatforms.indexOf(platform) !== -1) {
+          os = "iOS";
+          return "instagram://user?username=goallanservices";
+
+        } else if (/Android/.test(userAgent)) {
+          os = "Android";
+          return "instagram://user?username=goallanservices";
+        }
+        else
+        return "https://instagram.com/goallanservices" ;
+      }
+
       function getGoallan() {
         var userAgent = window.navigator.userAgent,
           platform = window.navigator.platform,
@@ -189,8 +209,6 @@
           return "https://facebook.com/104250568613734";
         }
 
-        return os;
-      }
 
       function getGomedia() {
         var userAgent = window.navigator.userAgent,
@@ -219,6 +237,7 @@
 
         return os;
       }
+
 
       // alert(getOS());
 
