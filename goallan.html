@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<title>Ronin</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="./static/css/style.css">
+<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Rubik'>
+<link rel="shortcut icon" href="./static/img/favicon.ico" />
+<body>
+    <!-- <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              My Socials
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="https://www.linkedin.com/in/keosombath-nou/" target="_blank">LinkedIn</a></li>
+              <li><a class="dropdown-item" href="https://twitch.tv/roninimous" target="_blank">Twitch</a></li>
+              <li><a class="dropdown-item" href="https://discord.gg/r7567Bt" target="_blank">Discord Server</a></li>
+              <li><a class="dropdown-item" href="https://www.facebook.com/roninimous" target="_blank">Facebook Gaming</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="https://github.com/roninimous" target="_blank">Github</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Facebook</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav> -->
+    <div class="container-fluid">
+<h1 style="text-align:center">Welcome to GoAllan!</h1>
+
+<div style="text-align:center">
+    <a href="" onclick="document.location.href = getOS()" target="_blank">
+        <img class="arrow" border="0" alt="LinkedIn Profile" src="./static/img/facebook.png" width="75" height="75"></a>
+
+   
+        <a href="https://youtube.com/@gomediaau" target="_blank">
+            <img class="arrow" border="0" alt="Youtube Profile" src="./static/img/youtube.png" width="75" height="75"></a>
+
+    
+
+    </div>
+<br>
+
+</div>
+<footer>ƒ
+  <p>This website is built by Keosombath Nou</p>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script>  
+        function getOS() {
+          var userAgent = window.navigator.userAgent,
+              platform = window.navigator.platform,
+              macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+              windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+              iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+              os = null;
+        
+          if (macosPlatforms.indexOf(platform) !== -1) {
+            os = 'Mac OS';
+            return "https://facebook.com/104250568613734";
+          } else if (iosPlatforms.indexOf(platform) !== -1) {
+            os = 'iOS';
+             return "fb://page/?id=104250568613734";
+          } else if (windowsPlatforms.indexOf(platform) !== -1) {
+            os = 'Windows';
+            return "https://facebook.com/104250568613734";
+          } else if (/Android/.test(userAgent)) {
+            os = 'Android';
+            return "fb://page/104250568613734";
+          } else if (!os && /Linux/.test(platform)) {
+            os = 'Linux';
+            return "https://facebook.com/104250568613734";
+          }
+            
+            
+          return os;
+        }
+        
+        // alert(getOS());
+        
+        $('a').click(function() {
+           saveCookie();  // save cookies
+           document.location.href = "sample.html";  // forward user to new page
+        
+           return false;  // ignore default src of anchor
+        });
+        </script>
+</body>
+</html>
