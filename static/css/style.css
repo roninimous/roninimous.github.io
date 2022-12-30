@@ -24,7 +24,7 @@ goallan {
 
 body {
   /* background: linear-gradient(#e3f2fd,#406097, black); */
-  background: #EEF0F4;
+  background: #333333;
 
   width: 100%;
   font-family: "rubik";
@@ -85,11 +85,9 @@ footer {
 }
 
 .testNeumorphism {
-  /* border-radius: 50px;
-background: #ff8647;
-box-shadow:  20px 20px 60px #d9723c,
-             -20px -20px 60px #ff9a52; */
-			 background: linear-gradient(145deg, #FFFFFF, #C4C6C9);
-border-radius: 15px;
-box-shadow: inset 2.7px 2.7px 15px #9FA1A3, inset -2.7px -2.7px 15px #FFFFFF;
+  border-radius: 50px;
+  background: #232323;
+  box-shadow: inset 20px 20px 60px #131313,
+              inset -20px -20px 60px #333333;
+    
 }
