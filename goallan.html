@@ -70,11 +70,18 @@
     <div class="container-fluid">
       <h1 style="text-align: center" class="goallan">Welcome to GoAllan!</h1>
       <div class="container testNeumorphism center" style="text-align: center">
-        <img
+        <a href="https://goallan.com.au" target="_blank"><img
           style="width: 200px; height: auto;  padding-top: 25px;"
           class="imgcenter"
           src="./static/img/goallan.png"
-        />
+        /></a>
+        <button
+          onclick="document.location.href = getWebsite()"
+          style="width: 200px; margin-bottom: 2px; "
+          class="btn1"
+        >
+          <i class="fa fa-globe"></i> Website</button
+        ><br />
         <button
           onclick="document.location.href = getGoallan()"
           style="width: 200px; margin-bottom: 2px; "
@@ -249,6 +256,9 @@
         return os;
       }
 
+      function getWebsite() {
+        return "https://goallan.com.au";
+      }
 
       // alert(getOS());
 
