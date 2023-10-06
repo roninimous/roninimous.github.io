@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'ps-gotica';
+  src: url('../font/Por_Siempre_G__tica.ttf') format('woff'),
+       url('../font/Por_Siempre_G__tica.ttf') format('truetype');
+  /* You can add additional font formats here if needed */
+}
+.ronin-font {
+  font-family: ps-gotica;
+  
+}
 h1 {
   background: -webkit-linear-gradient(
     135deg,
@@ -6,6 +16,19 @@ h1 {
   );
   -webkit-background-clip: text;
   font-size: 72px;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+.ronin{
+font-family: ps-gotica; font-weight: bold; font-size: 150px;
+}
+h3 {
+  background: -webkit-linear-gradient(
+    135deg,
+    rgb(51, 197, 255),
+    rgb(96, 255, 72)
+  );
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
@@ -28,13 +51,15 @@ body {
 
   width: 100%;
   font-family: "rubik";
+  padding-bottom: 3.5rem;
+  padding-top: 3.5rem;
 }
 
 html {
   height: 100%;
 }
 
-img {
+a>img {
   border-radius: 20px;
   margin: 3px;
 }
@@ -62,10 +87,10 @@ img {
 }
 
 footer {
-  /* display: block; */
+  display: block;
   text-align: center;
   padding: 3px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(198, 47, 47, 1);
   /* background:
 	-webkit-linear-gradient(135deg, rgb(0, 13, 255), rgb(93, 255, 72));
 	-webkit-background-clip: text;
@@ -90,4 +115,22 @@ footer {
   box-shadow: inset 20px 20px 60px #131313,
               inset -20px -20px 60px #333333;
     
+}
+
+@media screen and (max-width: 600px) {
+  .snake {
+    width: 100%;
+  }
+  a>img {
+    border-radius: 10px;
+    margin: 2px;
+    width: 50px;
+    height: 50px;
+  }
+  h1{
+    font-size: 50px;
+  }
+  .ronin{
+    font-size: 100px;
+  }
 }
