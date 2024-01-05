@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sticker Price Calculator</title>
+        <!-- Add Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin-bottom: 60px; /* Adjusted margin for the sticky footer */
+            }
+        
+            .footer {
+              position: fixed;
+              bottom: 0;
+              width: 100%;
+              background-color: #f8f9fa;
+              text-align: center;
+              padding: 10px;
+            }
+          </style>  
+    </head>
+      <body>
+      
+        <div class="container mt-4">
+      
+          <h1 class="text-center">Sticker Price Calculator</h1>
+      
+          <form>
+      
+            <div class="form-group">
+              <label for="shape">Select Sticker Shape:</label>
+              <select class="form-control" id="shape">
+                <option value="standard">Rectangle, Circle, Square &hellip;</option>
+                <option value="custom">Custom Shape</option>
+              </select>
+            </div>
+      
+            <div class="form-group">
+              <label for="width">Width:</label>
+              <input type="number" class="form-control" id="width" value="10">
+            </div>
+      
+            <div class="form-group">
+              <label for="height">Height:</label>
+              <input type="number" class="form-control" id="height" value="10">
+            </div>
+      
+            <div class="form-group">
+              <label for="quantity">Quantity:</label>
+              <input type="number" class="form-control" id="quantity" value="50">
+            </div>
+      
+            <div class="form-group">
+              <label>Laminate:</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="laminate" value="yes" id="laminateYes">
+                <label class="form-check-label" for="laminateYes">Yes</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="laminate" value="no" id="laminateNo" checked>
+                <label class="form-check-label" for="laminateNo">No</label>
+              </div>
+            </div>
+      
+            <button type="button" class="btn btn-primary" onclick="calculatePrice()">Calculate Price</button>
+      
+          </form>
+      
+          <h2 class="mt-4">Result:</h2>
+          <p id="result" class="lead">Price will be displayed here</p>
+      
+        </div>
+      
+        <!-- Add Bootstrap JS and Popper.js -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <!-- Sticky Footer -->
+  <div class="footer">
+    <p>&copy; 2024 Made by Wally for ACS</p>
+  </div>
+
+  <script>
+    function calculatePrice() {
+      const shape = document.getElementById('shape').value;
+      const width = parseFloat(document.getElementById('width').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const quantity = parseInt(document.getElementById('quantity').value);
+      const laminate = document.querySelector('input[name="laminate"]:checked').value;
+
+      let basePrice;
+
+      if (shape === 'standard') {
+        basePrice = (width + height) / 2 / 50;
+      } else if (shape === 'custom') {
+        basePrice = (width + height) / 2 / 50 * 1.1;
+      }
+
+      let totalPrice = basePrice * quantity;
+
+       // Quantity-based additional charges
+       if (quantity < 10) {
+        totalPrice *= 1.5;
+      } else if (quantity < 25) {
+        totalPrice *= 1.35;
+      } else if (quantity < 50) {
+        totalPrice *= 1.2;
+      }
+
+      // Quantity discounts
+      if (quantity >= 2000) {
+        totalPrice *= 0.33;
+      } else if (quantity >= 1000) {
+        totalPrice *= 0.35;
+      } else if (quantity >= 500) {
+        totalPrice *= 0.4;
+      } else if (quantity >= 300) {
+        totalPrice *= 0.51;
+      } else if (quantity >= 200) {
+        totalPrice *= 0.6;
+      } else if (quantity >= 100) {
+        totalPrice *= 0.75;
+      }
+
+      // Laminate cost
+      if (laminate === 'yes') {
+        totalPrice *= 1.2;
+      }
+      // Round to the nearest 0.5
+      totalPrice = Math.round(totalPrice * 2) / 2;
+
+      document.getElementById('result').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
