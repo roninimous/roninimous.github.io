@@ -133,7 +133,9 @@
       totalPrice = Math.round(totalPrice * 2) / 2;
 
       document.getElementById('result').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
     }
+  
   </script>
 
 </body>
