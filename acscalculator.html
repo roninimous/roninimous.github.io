@@ -35,6 +35,7 @@
               <select class="form-control" id="shape">
                 <option value="standard">Rectangle, Circle, Square &hellip;</option>
                 <option value="custom">Custom Shape</option>
+                <option value="transfer">Transfer Sticker</option>
               </select>
             </div>
       
@@ -64,7 +65,18 @@
                 <label class="form-check-label" for="laminateNo">No</label>
               </div>
             </div>
-      
+      <!-- Install Ready for Transfer Sticker -->
+      <div class="form-group" id="installReadyGroup" style="display: none;">
+        <label>Install Ready:</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="installReady" value="yes" id="installReadyYes">
+          <label class="form-check-label" for="installReadyYes">Yes</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="installReady" value="no" checked id="installReadyNo">
+          <label class="form-check-label" for="installReadyNo">No</label>
+        </div>
+      </div>
             <button type="button" class="btn btn-primary" onclick="calculatePrice()">Calculate Price</button>
       
           </form>
@@ -97,6 +109,15 @@
         basePrice = (width + height) / 2 / 50;
       } else if (shape === 'custom') {
         basePrice = (width + height) / 2 / 50 * 1.1;
+      }else if (shape === 'transfer') {
+        basePrice = (width + height) / 2 / 50;
+        // Additional charge for Transfer Sticker based on Install Ready
+        const installReady = document.querySelector('input[name="installReady"]:checked').value;
+        if (installReady === 'yes') {
+          basePrice *= 1.22; // 22% on top of price
+        } else {
+          basePrice *= 1.1; // 10% on top of price
+        }
       }
 
       let totalPrice = basePrice * quantity;
@@ -137,7 +158,15 @@
       document.getElementById('result').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
       document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
     }
-  
+    // Show/Hide Install Ready based on Sticker Shape
+    document.getElementById('shape').addEventListener('change', function () {
+      const installReadyGroup = document.getElementById('installReadyGroup');
+      if (this.value === 'transfer') {
+        installReadyGroup.style.display = 'block';
+      } else {
+        installReadyGroup.style.display = 'none';
+      }
+    });
   </script>
 
 </body>
