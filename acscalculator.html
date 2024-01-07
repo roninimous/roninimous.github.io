@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sticker Price Calculator</title>
+        <link rel="icon" type="image/png" href="/static/img/ACS.png">
+        <title>ACS Price Calculator</title>
         <!-- Add Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <style>
@@ -28,9 +29,9 @@
       
           <h1 class="text-center">Sticker Price Calculator</h1>
       
-          <form>
+          <form class="form-row">
       
-            <div class="form-group">
+            <div class="form-group col-md-12">
               <label for="shape">Select Sticker Shape:</label>
               <select class="form-control" id="shape">
                 <option value="standard">Rectangle, Circle, Square &hellip;</option>
@@ -39,22 +40,22 @@
               </select>
             </div>
       
-            <div class="form-group">
-              <label for="width">Width:</label>
+            <div class="form-group col-md-5 col-6">
+              <label for="width">Width (mm):</label>
               <input type="number" class="form-control" id="width" value="10">
             </div>
       
-            <div class="form-group">
-              <label for="height">Height:</label>
+            <div class="form-group col-md-5 col-6">
+              <label for="height">Height (mm):</label>
               <input type="number" class="form-control" id="height" value="10">
             </div>
       
-            <div class="form-group">
+            <div class="form-group col-md-2">
               <label for="quantity">Quantity:</label>
               <input type="number" class="form-control" id="quantity" value="50">
             </div>
       
-            <div class="form-group">
+            <div class="form-group col-md-12">
               <label>Laminate:</label>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="laminate" value="yes" id="laminateYes">
@@ -66,7 +67,7 @@
               </div>
             </div>
       <!-- Install Ready for Transfer Sticker -->
-      <div class="form-group" id="installReadyGroup" style="display: none;">
+      <div class="form-group col-md-12" id="installReadyGroup" style="display: none;">
         <label>Install Ready:</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="installReady" value="yes" id="installReadyYes">
@@ -77,6 +78,16 @@
           <label class="form-check-label" for="installReadyNo">No</label>
         </div>
       </div>
+
+      <!-- Discount Inputs -->
+     
+        <div class="form-group col-md-12">
+          <label for="percentageDiscount">Percentage Discount (%):</label>
+          <input type="number" class="form-control" id="percentageDiscount" value="0">
+        </div>
+      
+
+
             <button type="button" class="btn btn-primary" onclick="calculatePrice()">Calculate Price</button>
       
           </form>
@@ -91,8 +102,8 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <!-- Sticky Footer -->
-  <div class="footer">
-    <p>&copy; 2024 Made by Wally for ACS</p>
+  <div class="footer fixed-bottom text-center bg-light">
+    <p>&copy; 2024 Made by Wally for ACS <img src="/static/img/ACS.png" style="margin-bottom: 5px;"alt="ACS Logo" width="20" height="20"></p>
   </div>
 
   <script>
@@ -102,6 +113,7 @@
       const height = parseFloat(document.getElementById('height').value);
       const quantity = parseInt(document.getElementById('quantity').value);
       const laminate = document.querySelector('input[name="laminate"]:checked').value;
+      const discount = document.getElementById('percentageDiscount').value;
 
       let basePrice;
 
@@ -151,6 +163,10 @@
       // Laminate cost
       if (laminate === 'yes') {
         totalPrice *= 1.2;
+      }
+      // Apply Percentage Discount
+      if (discount > 0){
+      totalPrice *= (1 - discount / 100);
       }
       // Round to the nearest 0.5
       totalPrice = Math.round(totalPrice * 2) / 2;
