@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/static/img/ACS.png" />
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap"
+      rel="stylesheet"
+    />
     <title>ACS Price Calculator</title>
     <!-- Add Bootstrap CSS -->
     <link
@@ -11,27 +19,45 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <style>
+      .neonderthaw-regular {
+        font-family: "Neonderthaw", cursive;
+        font-weight: 400;
+        font-style: normal;
+      }
+
       body {
+        color: white;
+        /* background-color: rgb(1, 0, 53); */
+        background: linear-gradient(#e66465, #9198e5);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
         font-family: Arial, sans-serif;
         margin-bottom: 60px; /* Adjusted margin for the sticky footer */
       }
-
+      .neonText {
+        font-family: Neonderthaw;
+        color: #fff;
+        text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+          0 0 42px rgb(2, 14, 92), 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa,
+          0 0 151px #0fa;
+      }
       .footer {
         position: fixed;
         bottom: 0;
         width: 100%;
-        background-color: #f8f9fa;
+        
+        background-color: rgba(145, 145, 145, 0.179);;
         text-align: center;
         padding: 10px;
       }
-      span{
-        color:rgb(169, 169, 169);
+      span {
+        color: rgb(111, 255, 44);
       }
     </style>
   </head>
   <body>
     <div class="container mt-4">
-      <h1 class="text-center">Sticker Price Calculator</h1>
+      <h1 class="text-center neonText">Sticker Price Calculator</h1>
 
       <form class="form-row">
         <div class="form-group col-md-12">
@@ -68,7 +94,9 @@
               value="yes"
               id="laminateYes"
             />
-            <label class="form-check-label" for="laminateYes">Yes <span>(+20%)</span></label>
+            <label class="form-check-label" for="laminateYes"
+              >Yes <span>(+20%)</span></label
+            >
           </div>
           <div class="form-check">
             <input
@@ -112,19 +140,39 @@
           </div>
         </div>
 
-         <!-- Complexity Level for Hard Install Ready -->
-      <div class="form-group col-md-12" id="complexityLevelGroup" style="display: none">
-        <label>Complexity Level:</label>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="complexityLevel" value="normal" checked id="complexityLevelNormal">
-          <label class="form-check-label" for="complexityLevelNormal">Normal <span>(+22%)</span></label>
+        <!-- Complexity Level for Hard Install Ready -->
+        <div
+          class="form-group col-md-12"
+          id="complexityLevelGroup"
+          style="display: none"
+        >
+          <label>Complexity Level:</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="complexityLevel"
+              value="normal"
+              checked
+              id="complexityLevelNormal"
+            />
+            <label class="form-check-label" for="complexityLevelNormal"
+              >Normal <span>(+22%)</span></label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="complexityLevel"
+              value="hard"
+              id="complexityLevelHard"
+            />
+            <label class="form-check-label" for="complexityLevelHard"
+              >Hard <span>(+40%)</span></label
+            >
+          </div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="complexityLevel" value="hard" id="complexityLevelHard">
-          <label class="form-check-label" for="complexityLevelHard">Hard <span>(+40%)</span></label>
-        </div>
-      </div>
-
 
         <!-- Discount Inputs -->
 
@@ -156,7 +204,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Sticky Footer -->
-    <div class="footer fixed-bottom text-center bg-light">
+    <div class="footer fixed-bottom text-center ">
       <p>
         &copy; 2024 Made by Wally for ACS
         <img
@@ -178,10 +226,17 @@
         const laminate = document.querySelector(
           'input[name="laminate"]:checked'
         ).value;
-        
+
         const discount = document.getElementById("percentageDiscount").value;
-        const installReady = document.querySelector('input[name="installReady"]:checked').value;
-      const complexityLevel = document.querySelector('input[name="complexityLevel"]:checked') ? document.querySelector('input[name="complexityLevel"]:checked').value : 'normal';
+        const installReady = document.querySelector(
+          'input[name="installReady"]:checked'
+        ).value;
+        const complexityLevel = document.querySelector(
+          'input[name="complexityLevel"]:checked'
+        )
+          ? document.querySelector('input[name="complexityLevel"]:checked')
+              .value
+          : "normal";
 
         let basePrice;
 
@@ -190,17 +245,17 @@
         } else if (shape === "custom") {
           basePrice = ((width + height) / 2 / 50) * 1.1;
         } else if (shape === "transfer") {
-          basePrice = ((width + height) / 2 / 50) *1.1;
+          basePrice = ((width + height) / 2 / 50) * 1.1;
           // Additional charge for Transfer Sticker based on Install Ready
           const installReady = document.querySelector(
             'input[name="installReady"]:checked'
           ).value;
-          if (installReady === "yes" && complexityLevel === 'hard') {
+          if (installReady === "yes" && complexityLevel === "hard") {
             basePrice *= 1.4; // 40% on top of price
-          }// Additional charge for Hard Install Ready
-          else if (installReady === "yes" && complexityLevel === 'normal'){
+          } // Additional charge for Hard Install Ready
+          else if (installReady === "yes" && complexityLevel === "normal") {
             basePrice *= 1.22; // 22% on top of price
-          } 
+          }
           // else {
           //   basePrice *= 1.1; // 10% on top of price
           // }
@@ -242,7 +297,6 @@
         // Round to the nearest 0.5
         totalPrice = Math.round(totalPrice * 2) / 2;
 
-
         // Apply Percentage Discount
         if (discount > 0) {
           totalPrice *= 1 - discount / 100;
@@ -256,26 +310,35 @@
           .scrollIntoView({ behavior: "smooth" });
       }
       // Show/Hide Install Ready and Complexity Level based on Sticker Shape
-    document.getElementById("shape").addEventListener("change", function () {
-      const installReadyGroup = document.getElementById("installReadyGroup");
-      const complexityLevelGroup = document.getElementById("complexityLevelGroup");
+      document.getElementById("shape").addEventListener("change", function () {
+        const installReadyGroup = document.getElementById("installReadyGroup");
+        const complexityLevelGroup = document.getElementById(
+          "complexityLevelGroup"
+        );
 
-      if (this.value === "transfer") {
-        installReadyGroup.style.display = "block";
-        // Display Complexity Level only if Install Ready is selected
-        complexityLevelGroup.style.display = document.querySelector('input[name="installReady"]:checked').value === "yes" ? "block" : "none";
-      } else {
-        installReadyGroup.style.display = "none";
-        complexityLevelGroup.style.display = "none";
-      }
-    });
-    // Show/Hide Complexity Level based on Install Ready
-    document.getElementsByName("installReady").forEach(function (el) {
-      el.addEventListener("change", function () {
-        const complexityLevelGroup = document.getElementById("complexityLevelGroup");
-        complexityLevelGroup.style.display = this.value === "yes" ? "block" : "none";
+        if (this.value === "transfer") {
+          installReadyGroup.style.display = "block";
+          // Display Complexity Level only if Install Ready is selected
+          complexityLevelGroup.style.display =
+            document.querySelector('input[name="installReady"]:checked')
+              .value === "yes"
+              ? "block"
+              : "none";
+        } else {
+          installReadyGroup.style.display = "none";
+          complexityLevelGroup.style.display = "none";
+        }
       });
-    });
+      // Show/Hide Complexity Level based on Install Ready
+      document.getElementsByName("installReady").forEach(function (el) {
+        el.addEventListener("change", function () {
+          const complexityLevelGroup = document.getElementById(
+            "complexityLevelGroup"
+          );
+          complexityLevelGroup.style.display =
+            this.value === "yes" ? "block" : "none";
+        });
+      });
     </script>
   </body>
 </html>
