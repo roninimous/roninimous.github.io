@@ -1,189 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="/static/img/ACS.png">
-        <title>ACS Price Calculator</title>
-        <!-- Add Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <style>
-            body {
-              font-family: Arial, sans-serif;
-              margin-bottom: 60px; /* Adjusted margin for the sticky footer */
-            }
-        
-            .footer {
-              position: fixed;
-              bottom: 0;
-              width: 100%;
-              background-color: #f8f9fa;
-              text-align: center;
-              padding: 10px;
-            }
-          </style>  
-    </head>
-      <body>
-      
-        <div class="container mt-4">
-      
-          <h1 class="text-center">Sticker Price Calculator</h1>
-      
-          <form class="form-row">
-      
-            <div class="form-group col-md-12">
-              <label for="shape">Select Sticker Shape:</label>
-              <select class="form-control" id="shape">
-                <option value="standard">Rectangle, Circle, Square &hellip;</option>
-                <option value="custom">Custom Shape</option>
-                <option value="transfer">Transfer Sticker</option>
-              </select>
-            </div>
-      
-            <div class="form-group col-md-5 col-6">
-              <label for="width">Width (mm):</label>
-              <input type="number" class="form-control" id="width" value="10">
-            </div>
-      
-            <div class="form-group col-md-5 col-6">
-              <label for="height">Height (mm):</label>
-              <input type="number" class="form-control" id="height" value="10">
-            </div>
-      
-            <div class="form-group col-md-2">
-              <label for="quantity">Quantity:</label>
-              <input type="number" class="form-control" id="quantity" value="50">
-            </div>
-      
-            <div class="form-group col-md-12">
-              <label>Laminate:</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="laminate" value="yes" id="laminateYes">
-                <label class="form-check-label" for="laminateYes">Yes</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="laminate" value="no" id="laminateNo" checked>
-                <label class="form-check-label" for="laminateNo">No</label>
-              </div>
-            </div>
-      <!-- Install Ready for Transfer Sticker -->
-      <div class="form-group col-md-12" id="installReadyGroup" style="display: none;">
-        <label>Install Ready:</label>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/static/img/ACS.png" />
+    <title>ACS Price Calculator</title>
+    <!-- Add Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin-bottom: 60px; /* Adjusted margin for the sticky footer */
+      }
+
+      .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #f8f9fa;
+        text-align: center;
+        padding: 10px;
+      }
+      span{
+        color:rgb(169, 169, 169);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1 class="text-center">Sticker Price Calculator</h1>
+
+      <form class="form-row">
+        <div class="form-group col-md-12">
+          <label for="shape">Select Sticker Shape:</label>
+          <select class="form-control" id="shape">
+            <option value="standard">Rectangle, Circle, Square &hellip;</option>
+            <option value="custom">Custom Shape</option>
+            <option value="transfer">Transfer Sticker</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-5 col-6">
+          <label for="width">Width (mm):</label>
+          <input type="number" class="form-control" id="width" value="10" />
+        </div>
+
+        <div class="form-group col-md-5 col-6">
+          <label for="height">Height (mm):</label>
+          <input type="number" class="form-control" id="height" value="10" />
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="quantity">Quantity:</label>
+          <input type="number" class="form-control" id="quantity" value="50" />
+        </div>
+
+        <div class="form-group col-md-12">
+          <label>Laminate:</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="laminate"
+              value="yes"
+              id="laminateYes"
+            />
+            <label class="form-check-label" for="laminateYes">Yes <span>(+20%)</span></label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="laminate"
+              value="no"
+              id="laminateNo"
+              checked
+            />
+            <label class="form-check-label" for="laminateNo">No</label>
+          </div>
+        </div>
+        <!-- Install Ready for Transfer Sticker -->
+        <div
+          class="form-group col-md-12"
+          id="installReadyGroup"
+          style="display: none"
+        >
+          <label>Install Ready:</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="installReady"
+              value="yes"
+              id="installReadyYes"
+            />
+            <label class="form-check-label" for="installReadyYes">Yes</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="installReady"
+              value="no"
+              checked
+              id="installReadyNo"
+            />
+            <label class="form-check-label" for="installReadyNo">No</label>
+          </div>
+        </div>
+
+         <!-- Complexity Level for Hard Install Ready -->
+      <div class="form-group col-md-12" id="complexityLevelGroup" style="display: none">
+        <label>Complexity Level:</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="installReady" value="yes" id="installReadyYes">
-          <label class="form-check-label" for="installReadyYes">Yes</label>
+          <input class="form-check-input" type="radio" name="complexityLevel" value="normal" checked id="complexityLevelNormal">
+          <label class="form-check-label" for="complexityLevelNormal">Normal <span>(+22%)</span></label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="installReady" value="no" checked id="installReadyNo">
-          <label class="form-check-label" for="installReadyNo">No</label>
+          <input class="form-check-input" type="radio" name="complexityLevel" value="hard" id="complexityLevelHard">
+          <label class="form-check-label" for="complexityLevelHard">Hard <span>(+40%)</span></label>
         </div>
       </div>
 
-      <!-- Discount Inputs -->
-     
+
+        <!-- Discount Inputs -->
+
         <div class="form-group col-md-12">
           <label for="percentageDiscount">Percentage Discount (%):</label>
-          <input type="number" class="form-control" id="percentageDiscount" value="0">
+          <input
+            type="number"
+            class="form-control"
+            id="percentageDiscount"
+            value="0"
+          />
         </div>
-      
 
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="calculatePrice()"
+        >
+          Calculate Price
+        </button>
+      </form>
 
-            <button type="button" class="btn btn-primary" onclick="calculatePrice()">Calculate Price</button>
-      
-          </form>
-      
-          <h2 class="mt-4">Result:</h2>
-          <p id="result" class="lead">Price will be displayed here</p>
-      
-        </div>
-      
-        <!-- Add Bootstrap JS and Popper.js -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      <!-- Sticky Footer -->
-  <div class="footer fixed-bottom text-center bg-light">
-    <p>&copy; 2024 Made by Wally for ACS <img src="/static/img/ACS.png" style="margin-bottom: 5px;"alt="ACS Logo" width="20" height="20"></p>
-  </div>
+      <h2 class="mt-4">Result:</h2>
+      <p id="result" class="lead">Price will be displayed here</p>
+    </div>
 
-  <script>
-    function calculatePrice() {
-      const shape = document.getElementById('shape').value;
-      const width = parseFloat(document.getElementById('width').value);
-      const height = parseFloat(document.getElementById('height').value);
-      const quantity = parseInt(document.getElementById('quantity').value);
-      const laminate = document.querySelector('input[name="laminate"]:checked').value;
-      const discount = document.getElementById('percentageDiscount').value;
+    <!-- Add Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Sticky Footer -->
+    <div class="footer fixed-bottom text-center bg-light">
+      <p>
+        &copy; 2024 Made by Wally for ACS
+        <img
+          src="/static/img/ACS.png"
+          style="margin-bottom: 5px"
+          alt="ACS Logo"
+          width="20"
+          height="20"
+        />
+      </p>
+    </div>
 
-      let basePrice;
-
-      if (shape === 'standard') {
-        basePrice = (width + height) / 2 / 50;
-      } else if (shape === 'custom') {
-        basePrice = (width + height) / 2 / 50 * 1.1;
-      }else if (shape === 'transfer') {
-        basePrice = (width + height) / 2 / 50;
-        // Additional charge for Transfer Sticker based on Install Ready
+    <script>
+      function calculatePrice() {
+        const shape = document.getElementById("shape").value;
+        const width = parseFloat(document.getElementById("width").value);
+        const height = parseFloat(document.getElementById("height").value);
+        const quantity = parseInt(document.getElementById("quantity").value);
+        const laminate = document.querySelector(
+          'input[name="laminate"]:checked'
+        ).value;
+        
+        const discount = document.getElementById("percentageDiscount").value;
         const installReady = document.querySelector('input[name="installReady"]:checked').value;
-        if (installReady === 'yes') {
-          basePrice *= 1.22; // 22% on top of price
-        } else {
-          basePrice *= 1.1; // 10% on top of price
+      const complexityLevel = document.querySelector('input[name="complexityLevel"]:checked') ? document.querySelector('input[name="complexityLevel"]:checked').value : 'normal';
+
+        let basePrice;
+
+        if (shape === "standard") {
+          basePrice = (width + height) / 2 / 50;
+        } else if (shape === "custom") {
+          basePrice = ((width + height) / 2 / 50) * 1.1;
+        } else if (shape === "transfer") {
+          basePrice = ((width + height) / 2 / 50) *1.1;
+          // Additional charge for Transfer Sticker based on Install Ready
+          const installReady = document.querySelector(
+            'input[name="installReady"]:checked'
+          ).value;
+          if (installReady === "yes" && complexityLevel === 'hard') {
+            basePrice *= 1.4; // 40% on top of price
+          }// Additional charge for Hard Install Ready
+          else if (installReady === "yes" && complexityLevel === 'normal'){
+            basePrice *= 1.22; // 22% on top of price
+          } 
+          // else {
+          //   basePrice *= 1.1; // 10% on top of price
+          // }
         }
-      }
 
-      let totalPrice = basePrice * quantity;
+        let totalPrice = basePrice * quantity;
 
-       // Quantity-based additional charges
-       if (quantity < 10) {
-        totalPrice *= 1.5;
-      } else if (quantity < 25) {
-        totalPrice *= 1.35;
-      } else if (quantity < 50) {
-        totalPrice *= 1.2;
-      }
+        // Quantity-based additional charges
+        if (quantity < 10) {
+          totalPrice *= 1.5;
+        } else if (quantity < 25) {
+          totalPrice *= 1.35;
+        } else if (quantity < 50) {
+          totalPrice *= 1.2;
+        }
 
-      // Quantity discounts
-      if (quantity >= 2000) {
-        totalPrice *= 0.33;
-      } else if (quantity >= 1000) {
-        totalPrice *= 0.35;
-      } else if (quantity >= 500) {
-        totalPrice *= 0.4;
-      } else if (quantity >= 400) {
-        totalPrice *= 0.45;
-      } else if (quantity >= 300) {
-        totalPrice *= 0.51;
-      } else if (quantity >= 200) {
-        totalPrice *= 0.6;
-      } else if (quantity >= 100) {
-        totalPrice *= 0.75;
-      }
+        // Quantity discounts
+        if (quantity >= 2000) {
+          totalPrice *= 0.33;
+        } else if (quantity >= 1000) {
+          totalPrice *= 0.35;
+        } else if (quantity >= 500) {
+          totalPrice *= 0.4;
+        } else if (quantity >= 400) {
+          totalPrice *= 0.45;
+        } else if (quantity >= 300) {
+          totalPrice *= 0.51;
+        } else if (quantity >= 200) {
+          totalPrice *= 0.6;
+        } else if (quantity >= 100) {
+          totalPrice *= 0.75;
+        }
 
-      // Laminate cost
-      if (laminate === 'yes') {
-        totalPrice *= 1.2;
-      }
-      // Apply Percentage Discount
-      if (discount > 0){
-      totalPrice *= (1 - discount / 100);
-      }
-      // Round to the nearest 0.5
-      totalPrice = Math.round(totalPrice * 2) / 2;
+        // Laminate cost
+        if (laminate === "yes") {
+          totalPrice *= 1.2;
+        }
 
-      document.getElementById('result').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
-      document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
-    }
-    // Show/Hide Install Ready based on Sticker Shape
-    document.getElementById('shape').addEventListener('change', function () {
-      const installReadyGroup = document.getElementById('installReadyGroup');
-      if (this.value === 'transfer') {
-        installReadyGroup.style.display = 'block';
+        // Round to the nearest 0.5
+        totalPrice = Math.round(totalPrice * 2) / 2;
+
+
+        // Apply Percentage Discount
+        if (discount > 0) {
+          totalPrice *= 1 - discount / 100;
+        }
+
+        document.getElementById(
+          "result"
+        ).textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+        document
+          .getElementById("result")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+      // Show/Hide Install Ready and Complexity Level based on Sticker Shape
+    document.getElementById("shape").addEventListener("change", function () {
+      const installReadyGroup = document.getElementById("installReadyGroup");
+      const complexityLevelGroup = document.getElementById("complexityLevelGroup");
+
+      if (this.value === "transfer") {
+        installReadyGroup.style.display = "block";
+        // Display Complexity Level only if Install Ready is selected
+        complexityLevelGroup.style.display = document.querySelector('input[name="installReady"]:checked').value === "yes" ? "block" : "none";
       } else {
-        installReadyGroup.style.display = 'none';
+        installReadyGroup.style.display = "none";
+        complexityLevelGroup.style.display = "none";
       }
     });
-  </script>
-
-</body>
+    // Show/Hide Complexity Level based on Install Ready
+    document.getElementsByName("installReady").forEach(function (el) {
+      el.addEventListener("change", function () {
+        const complexityLevelGroup = document.getElementById("complexityLevelGroup");
+        complexityLevelGroup.style.display = this.value === "yes" ? "block" : "none";
+      });
+    });
+    </script>
+  </body>
 </html>
