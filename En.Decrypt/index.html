@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Where's Wally?</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Where's <span style="color:red;">Wally?</span></h1>
+      <label for="inputText">Enter Passphrase:</label>
+      <!-- Add the Paste from Clipboard button -->
+      <button onclick="pasteFromClipboard()">Paste from Clipboard</button>
+
+      <textarea id="inputText" rows="4"></textarea>
+
+      <label for="key">Enter Custom Key:</label>
+      <input
+        type="text"
+        id="key"
+        placeholder="Enter 32-byte key in hexadecimal"
+      />
+
+      <button onclick="encrypt()">Encrypt</button>
+      <button onclick="decrypt()">Decrypt</button>
+
+      <label for="outputText">Result:</label>
+      <textarea id="outputText" rows="4" readonly></textarea>
+      <!-- Add the Copy to Clipboard button -->
+      <button onclick="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
