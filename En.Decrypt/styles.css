@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #282c34;
+    color: #61dafb;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  
+  textarea,
+  input,
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #333;
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+  button {
+    cursor: pointer;
+    background-color: #61dafb;
+    color: #282c34;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #45aaf2;
+  }
+  
+  textarea[readonly] {
+    background-color: #333;
+  }
+  
+  /* Adjustments for the Paste and Copy buttons */
+  button:nth-child(2),
+  button:nth-child(4) {
+    background-color: #4caf50;
+  }
+  
+  button:nth-child(2):hover,
+  button:nth-child(4):hover {
+    background-color: #45a045;
+  }
+  
