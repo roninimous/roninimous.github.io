@@ -48,31 +48,37 @@ async function decrypt() {
     // Convert the custom key to an ArrayBuffer
     const keyBuffer = hexStringToBuffer(customKey);
 
-    // Import the key
-    const key = await window.crypto.subtle.importKey(
-        'raw',
-        keyBuffer,
-        { name: 'AES-GCM' },
-        false,
-        ['encrypt', 'decrypt']
-    );
+    try {
+        // Import the key
+        const key = await window.crypto.subtle.importKey(
+            'raw',
+            keyBuffer,
+            { name: 'AES-GCM' },
+            false,
+            ['encrypt', 'decrypt']
+        );
 
-    // Convert the base64-encoded string to an ArrayBuffer
-    const ciphertext = Uint8Array.from(atob(encryptedText), c => c.charCodeAt(0));
+        // Convert the base64-encoded string to an ArrayBuffer
+        const ciphertext = Uint8Array.from(atob(encryptedText), c => c.charCodeAt(0));
 
-    // Decrypt the ciphertext using AES-GCM
-    const decryptedText = await window.crypto.subtle.decrypt(
-        { name: 'AES-GCM', iv: new Uint8Array(12) }, // IV should be the same as used for encryption
-        key,
-        ciphertext
-    );
+        // Decrypt the ciphertext using AES-GCM
+        const decryptedText = await window.crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: new Uint8Array(12) }, // IV should be the same as used for encryption
+            key,
+            ciphertext
+        );
 
-    // Convert the decrypted text to a string
-    const decoder = new TextDecoder();
-    const plaintext = decoder.decode(decryptedText);
+        // Convert the decrypted text to a string
+        const decoder = new TextDecoder();
+        const plaintext = decoder.decode(decryptedText);
 
-    document.getElementById('outputText').value = plaintext;
+        document.getElementById('outputText').value = plaintext;
+    } catch (error) {
+        console.error('Decryption error:', error);
+        alert('Decryption failed. Please check the passphrase and try again.');
+    }
 }
+
 
 function validateKey(key) {
     // Validate that the key is a 32-byte hexadecimal string
@@ -95,7 +101,25 @@ function copyToClipboard() {
     // Copy the selected text to the clipboard
     document.execCommand('copy');
     
-    alert('Text copied to clipboard');
+    // alert('Text copied to clipboard');
+    // Create a notification element
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = 'Text copied to clipboard';
+    
+    // Append the notification to the body
+    document.body.appendChild(notification);
+    
+    // Add the show class to make the notification visible
+    notification.classList.add('show');
+    
+    // Remove the show class and the notification after 2 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 500);
+    }, 800);
 }
 
 async function pasteFromClipboard() {
@@ -105,6 +129,25 @@ async function pasteFromClipboard() {
     try {
         const clipboardText = await navigator.clipboard.readText();
         inputText.value = clipboardText;
+
+        // Create a notification element
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = 'Pasted to Passphrase';
+    
+    // Append the notification to the body
+    document.body.appendChild(notification);
+    
+    // Add the show class to make the notification visible
+    notification.classList.add('show');
+    
+    // Remove the show class and the notification after 2 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 500);
+    }, 800);
     } catch (err) {
         console.error('Unable to read from clipboard', err);
         alert('Unable to read from clipboard. Please paste manually.');
