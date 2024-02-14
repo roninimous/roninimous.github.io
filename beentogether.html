@@ -1,187 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/static/img/infinityheart.png" />
     <title>S❤P</title>
-    <link rel="stylesheet">
-    <style>/* Reset styles */
-    /* Add styles for notification */
-    /* Add background GIF */
-.background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://media1.tenor.com/m/o_5RQarGvJ0AAAAC/kiss.gif');
-    background-size: cover;
-    z-index: -1; /* Ensure the background is behind other content */
-}
-.notification {
-    display: none;
-    background-color: #e91e63;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-/* Updated styles for heart animation */
-@keyframes float {
-    0% { transform: translateY(0) rotate(-45deg); }
-    50% { transform: translateY(-30px) rotate(24deg); }
-    100% { transform: translateY(0) rotate(-45deg); }
-}
-
-.heart {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    color: #e91e63;
-    animation: float 1.5s ease-in-out infinite;
-    z-index: 9999;
-    text-shadow: 0 0 5px rgba(233, 30, 99, 0.5); /* Add a subtle shadow effect */
-}
-
-/* Optional: Apply different sizes to hearts */
-.heart:nth-child(odd) {
-    font-size: 24px;
-}
-
-.heart:nth-child(even) {
-    font-size: 16px;
-}
-
-
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <link rel="stylesheet" />
+    <style>
+      /* Reset styles */
+      /* Add styles for notification */
+      /* Add background GIF */
+      .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://media1.tenor.com/m/o_5RQarGvJ0AAAAC/kiss.gif");
+        background-size: cover;
+        z-index: -1; /* Ensure the background is behind other content */
+      }
+      .notification {
+        max-width: 300px;
+        display: none;
+        background-color: #e91e63;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+      /* Updated styles for heart animation */
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(-45deg);
         }
-        
-        /* Basic styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        50% {
+          transform: translateY(-30px) rotate(24deg);
         }
-        
-        .container {
-            text-align: center;
+        100% {
+          transform: translateY(0) rotate(-45deg);
         }
-        
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-        
-        .countdown {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .days-counter {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #e91e63;
-        }
-        
-        /* Add media queries or additional styles as needed */
-        </style>
-</head>
-<body>
+      }
+
+      .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        color: #e91e63;
+        animation: float 1.5s ease-in-out infinite;
+        z-index: 9999;
+        text-shadow: 0 0 5px rgba(233, 30, 99, 0.5); /* Add a subtle shadow effect */
+      }
+
+      /* Optional: Apply different sizes to hearts */
+      .heart:nth-child(odd) {
+        font-size: 24px;
+      }
+
+      .heart:nth-child(even) {
+        font-size: 16px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Basic styles */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #333;
+      }
+
+      .countdown {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .days-counter {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #e91e63;
+      }
+      /* Footer styles */
+      footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: pink;
+        color: red;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+      }
+
+      /* Add media queries or additional styles as needed */
+    </style>
+  </head>
+  <body>
     <div class="background"></div>
     <div class="container">
-        <h1 style="color:white;text-shadow: 0px 0px 5px #333;">Our Days Together</h1>
-        <div class="countdown">
-            <p>We've been together for</p>
-            <div class="days-counter" id="days">000</div>
-            <p>days and counting...</p>
-        </div>
-        <div class="notification" id="anniversary-notification">
-            <p id="notification-text"></p>
-        </div>
-        <div class="hearts" id="hearts"></div>
+      <h1 style="color: white; text-shadow: 0px 0px 5px #333">
+        Our Days Together
+      </h1>
+      <div class="countdown">
+        <p>We've been together for</p>
+        <div class="days-counter" id="days">000</div>
+        <p>days and counting...</p>
+      </div>
+      <div class="containter notification" id="anniversary-notification">
+        <p id="notification-text"></p>
+      </div>
+      <div class="hearts" id="hearts"></div>
     </div>
+    <!-- Footer -->
+    <footer>
+      <p>Designed with love for Sombath and Dapich</p>
+    </footer>
 
     <script>
-  // Calculate the number of days between the start date and today
-function calculateDays(startDate) {
-    const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
-    const currentDate = new Date();
-    const start = new Date(startDate);
-    const diffDays = Math.round(Math.abs((currentDate - start) / oneDay));
-    return diffDays;
-}
+      // Calculate the number of days between the start date and today
+      function calculateDays(startDate) {
+        const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
+        const currentDate = new Date();
+        const start = new Date(startDate);
+        const diffDays = Math.round(Math.abs((currentDate - start) / oneDay));
+        return diffDays;
+      }
 
-// Calculate the number of months since the start date
-function calculateMonths(startDate) {
-    const currentDate = new Date();
-    const start = new Date(startDate);
-    const diffMonths = (currentDate.getMonth() - start.getMonth()) + (12 * (currentDate.getFullYear() - start.getFullYear()));
-    return diffMonths;
-}
+      // Calculate the number of months since the start date
+      function calculateMonths(startDate) {
+        const currentDate = new Date();
+        const start = new Date(startDate);
+        const diffMonths =
+          currentDate.getMonth() -
+          start.getMonth() +
+          12 * (currentDate.getFullYear() - start.getFullYear());
+        return diffMonths;
+      }
 
-// Update the days counter element with the calculated number of days
-function updateDaysCounter(startDate) {
-    const daysCounter = document.getElementById('days');
-    const days = calculateDays(startDate);
-    daysCounter.textContent = days;
-}
+      // Update the days counter element with the calculated number of days
+      function updateDaysCounter(startDate) {
+        const daysCounter = document.getElementById("days");
+        const days = calculateDays(startDate);
+        daysCounter.textContent = days;
+      }
 
-// Check if today is the 7th of the month and display anniversary message
-function checkAnniversary(startDate) {
-    const currentDate = new Date();
-    const notification = document.getElementById('anniversary-notification');
-    const notificationTextNode = document.getElementById('notification-text');
-    if (currentDate.getDate() === 7) {
-        const months = calculateMonths(startDate);
-        const notificationText = `Happy Anniversary! Celebrating ${months} months together.`;
-        notificationTextNode.textContent = notificationText;
-        notification.style.display = 'block';
-    } else {
-        notification.style.display = 'none';
-    }
-}
+      // Check if today is the 7th of the month and display anniversary message
+      function checkAnniversary(startDate) {
+        const currentDate = new Date();
+        const notification = document.getElementById(
+          "anniversary-notification"
+        );
+        const notificationTextNode =
+          document.getElementById("notification-text");
+        if (currentDate.getDate() === 14) {
+          const months = calculateMonths(startDate);
+          const notificationText = `Happy Anniversary! Celebrating ${months} months together.`;
+          notificationTextNode.textContent = notificationText;
+          notification.style.display = "block";
+        } else {
+          notification.style.display = "none";
+        }
+      }
 
-// Create heart elements and apply animation
-document.addEventListener('DOMContentLoaded', () => {
-    const heartsContainer = document.getElementById('hearts');
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const numHearts = 50; // Number of hearts to display
+      // Create heart elements and apply animation
+      document.addEventListener("DOMContentLoaded", () => {
+        const heartsContainer = document.getElementById("hearts");
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const numHearts = 50; // Number of hearts to display
 
-    for (let i = 0; i < numHearts; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '&hearts;';
-        const randomX = Math.floor(Math.random() * screenWidth);
-        const randomY = Math.floor(Math.random() * screenHeight);
-        heart.style.left = `${randomX}px`;
-        heart.style.top = `${randomY}px`;
-        heartsContainer.appendChild(heart);
-    }
-});
+        for (let i = 0; i < numHearts; i++) {
+          const heart = document.createElement("div");
+          heart.classList.add("heart");
+          heart.innerHTML = "&hearts;";
+          const randomX = Math.floor(Math.random() * screenWidth);
+          const randomY = Math.floor(Math.random() * screenHeight);
+          heart.style.left = `${randomX}px`;
+          heart.style.top = `${randomY}px`;
+          heartsContainer.appendChild(heart);
+        }
+      });
 
-// Set the start date of the relationship (YYYY-MM-DD format)
-const startDate = '2022-02-07'; // Example start date
-updateDaysCounter(startDate);
-checkAnniversary(startDate);
+      // Set the start date of the relationship (YYYY-MM-DD format)
+      const startDate = "2022-02-07"; // Example start date
+      updateDaysCounter(startDate);
+      checkAnniversary(startDate);
 
-// Update the days counter every second
-setInterval(() => {
-    updateDaysCounter(startDate);
-    checkAnniversary(startDate);
-}, 1000);
-
+      // Update the days counter every second
+      setInterval(() => {
+        updateDaysCounter(startDate);
+        checkAnniversary(startDate);
+      }, 1000);
     </script>
-</body>
+  </body>
 </html>
