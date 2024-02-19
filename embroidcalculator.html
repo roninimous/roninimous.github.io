@@ -141,13 +141,13 @@
             basePrice = calculateBasePrice(25, 20, 14.5, 13, 12, 11.5);
         }
 
-        let totalPrice = basePrice;
+        let totalPrice = basePrice*quantity;
 
         if (setupFee === "yes") {
             totalPrice += 77;
         }
 
-        document.getElementById("result").textContent = `Total Price: $${(totalPrice * quantity).toFixed(2)}`;
+        document.getElementById("result").textContent = `Total Price: $${(totalPrice).toFixed(2)}`;
         document.getElementById("result").scrollIntoView({ behavior: "smooth" });
     }
 
