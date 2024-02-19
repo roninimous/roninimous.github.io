@@ -32,7 +32,7 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         font-family: Arial, sans-serif;
-        margin-bottom: 60px; /* Adjusted margin for the sticky footer */
+        /* margin-bottom: 60px; Adjusted margin for the sticky footer */
       }
       .neonText {
         font-family: Neonderthaw;
@@ -41,14 +41,14 @@
           0 0 42px rgb(2, 14, 92), 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa,
           0 0 151px #0fa;
       }
-      .footer {
-        position: fixed;
+      footer {
+        /* position: fixed; */
         bottom: 0;
         width: 100%;
-        
+        margin-top: 100px;
         background-color: rgba(145, 145, 145, 0.179);;
         text-align: center;
-        padding: 10px;
+        /* padding: 10px; */
       }
       span {
         color: rgb(111, 255, 44);
@@ -204,8 +204,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Sticky Footer -->
-    <div class="footer fixed-bottom text-center ">
-      <p>
+    <footer>
         &copy; 2024 Made by Wally for ACS
         <img
           src="/static/img/ACS.png"
@@ -214,8 +213,8 @@
           width="20"
           height="20"
         />. Other services (e.g. <a style="color:yellow;" href="embroidcalculator.html">Embroidery Calculator</a>)
-      </p>
-    </div>
+     
+    </footer>
 
     <script>
       function calculatePrice() {
