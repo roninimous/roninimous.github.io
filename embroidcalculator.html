@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS Embroidery Calculator</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap"
+    rel="stylesheet"
+  />
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+       .neonderthaw-regular {
+        font-family: "Neonderthaw", cursive;
+        font-weight: 400;
+        font-style: normal;
+      }
+        body {
+
+        color: white;
+            background: linear-gradient(#ff4000, #ffda36);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin-bottom: 60px; /* Adjusted margin for the sticky footer */
+        }
+        .neonText {
+            font-family: Neonderthaw;
+            color: #fff;
+            text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+                0 0 42px rgb(2, 14, 92), 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa,
+                0 0 151px #0fa;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(145, 145, 145, 0.179);
+            text-align: center;
+            padding: 10px;
+        }
+        span {
+            color: rgb(111, 255, 44);
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="text-center neonText">Embroidery Price Calculator</h1>
+    <form class="form-row">
+        <div class="form-group col-md-12">
+            <label for="type">Select Embroidery Type:</label>
+            <select class="form-control" id="type" onchange="updateOptions()">
+                <option value="size">Size</option>
+                <option value="stitches">Stitches</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-12" id="sizeGroup">
+            <label for="size">Select Size:</label>
+            <select class="form-control" id="size">
+                <option value="100">100mm</option>
+                <option value="150">150mm</option>
+                <option value="200">200mm</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-12" id="stitchesGroup" style="display: none;">
+            <label for="stitches">Select Stitches:</label>
+            <select class="form-control" id="stitches">
+                <option value="10000">10,000</option>
+                <option value="15000">15,000</option>
+                <option value="20000">20,000</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" value="1" min="1">
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="setupFee">Setup Fee:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="setupFee" value="yes" id="setupFeeYes">
+                <label class="form-check-label" for="setupFeeYes">Yes <span>(+$77)</span></label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="setupFee" value="no" id="setupFeeNo" checked>
+                <label class="form-check-label" for="setupFeeNo">No</label>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-warning" onclick="calculatePrice()">Calculate Price</button>
+    </form>
+
+    <h2 class="mt-4">Result:</h2>
+    <p id="result" class="lead">Price will be displayed here</p>
+</div>
+
+<!-- Add Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function updateOptions() {
+        const type = document.getElementById("type").value;
+        const sizeGroup = document.getElementById("sizeGroup");
+        const stitchesGroup = document.getElementById("stitchesGroup");
+
+        if (type === "size") {
+            sizeGroup.style.display = "block";
+            stitchesGroup.style.display = "none";
+        } else {
+            sizeGroup.style.display = "none";
+            stitchesGroup.style.display = "block";
+        }
+    }
+
+    function calculatePrice() {
+        const quantity = parseInt(document.getElementById("quantity").value);
+        const setupFee = document.querySelector('input[name="setupFee"]:checked').value;
+        const type = document.getElementById("type").value;
+        let value;
+
+        if (type === "size") {
+            value = parseInt(document.getElementById("size").value);
+        } else {
+            value = parseInt(document.getElementById("stitches").value);
+        }
+
+        let basePrice;
+
+        if (value === 100) {
+            basePrice = calculateBasePrice(15, 10, 8.5, 8, 7, 6.5);
+        } else if (value === 150) {
+            basePrice = calculateBasePrice(20, 15, 9.5, 9, 8, 7.5);
+        } else {
+            basePrice = calculateBasePrice(25, 20, 14.5, 13, 12, 11.5);
+        }
+
+        let totalPrice = basePrice;
+
+        if (setupFee === "yes") {
+            totalPrice += 77;
+        }
+
+        document.getElementById("result").textContent = `Total Price: $${(totalPrice * quantity).toFixed(2)}`;
+        document.getElementById("result").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function calculateBasePrice(price1, price2, price3, price4, price5, price6) {
+        const quantity = parseInt(document.getElementById("quantity").value);
+        let basePrice;
+
+        if (quantity >= 500) {
+            basePrice = price6;
+        } else if (quantity >= 150) {
+            basePrice = price5;
+        } else if (quantity >= 50) {
+            basePrice = price4;
+        } else if (quantity >= 10) {
+            basePrice = price3;
+        } else if (quantity >= 5) {
+            basePrice = price2;
+        } else {
+            basePrice = price1;
+        }
+
+        return basePrice;
+    }
+</script>
+</body>
+</html>
