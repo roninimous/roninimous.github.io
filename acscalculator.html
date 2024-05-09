@@ -25,10 +25,37 @@
         font-style: normal;
       }
 
+      .neumorphism {
+        border-radius: 25px;
+        background: linear-gradient(145deg, #94c4ff, #7ca5e6);
+        box-shadow: 10px 10px 25px #6e92cc, -10px -10px 25px #a6dcff;
+      }
+      input {
+        border-radius: 10px !important;
+      }
+      .btn-neumorphism {
+        color: white;
+        border-radius: 10px;
+        background: linear-gradient(145deg, #94c4ff, #7ca5e6);
+        box-shadow: 5px 5px 15px #5a77a6, -5px -5px 15px #baf7ff;
+        border-color: #8ab7ffbd;
+      }
+
+      .btn-neumorphism:active {
+        border-radius: 10px;
+        background: #8ab7ff;
+        box-shadow: inset 5px 5px 15px #5a77a6, inset -5px -5px 15px #baf7ff;
+      }
+      .btn-neumorphism:hover {
+        box-shadow: blue !important;
+        color: rgb(205, 224, 255);
+      }
+
       body {
         color: white;
         /* background-color: rgb(1, 0, 53); */
-        background: linear-gradient(#e66465, #9198e5);
+        /* background: linear-gradient(#e66465, #9198e5); */
+        background-color: #8ab7ff;
         background-repeat: no-repeat;
         background-attachment: fixed;
         font-family: Arial, sans-serif;
@@ -36,38 +63,275 @@
       }
       .neonText {
         font-family: Neonderthaw;
-        color: #fff;
-        text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+        color: #ff0000;
+        text-shadow: 0 0 7px #ff7575, 0 0 10px #ff7575, 0 0 21px #ff7575,
           0 0 42px rgb(2, 14, 92), 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa,
           0 0 151px #0fa;
       }
       footer {
-        /* position: fixed; */
+        position: fixed;
         bottom: 0;
         width: 100%;
         margin-top: 100px;
-        background-color: rgba(145, 145, 145, 0.179);;
+        background-color: rgba(255, 255, 255, 0.179);
         text-align: center;
         /* padding: 10px; */
       }
       span {
         color: rgb(111, 255, 44);
       }
+      .result {
+        margin: 10px;
+        padding-bottom: 50px;
+        color: rgb(111, 255, 44);
+      }
+      /* checkbox radio  */
+
+      .radio-inputs {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 350px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .radio-inputs > * {
+        margin: 6px;
+      }
+
+      .radio-input:checked + .radio-tile {
+        border-color: #2260ff;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        color: #2260ff;
+      }
+
+      .radio-input:checked + .radio-tile:before {
+        transform: scale(1);
+        opacity: 1;
+        background-color: #2260ff;
+        border-color: #2260ff;
+      }
+
+      .radio-input:checked + .radio-tile .radio-icon svg {
+        fill: #2260ff;
+      }
+
+      .radio-input:checked + .radio-tile .radio-label {
+        color: #2260ff;
+      }
+
+      .radio-input:focus + .radio-tile {
+        border-color: #2260ff;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+      }
+
+      .radio-input:focus + .radio-tile:before {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      .radio-tile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        min-height: 80px;
+        border-radius: 0.5rem;
+        border: 2px solid #b5bfd9;
+        background-color: #fff;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        transition: 0.15s ease;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .radio-tile:before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 0.75rem;
+        height: 0.75rem;
+        border: 2px solid #b5bfd9;
+        background-color: #fff;
+        border-radius: 50%;
+        top: 0.25rem;
+        left: 0.25rem;
+        opacity: 0;
+        transform: scale(0);
+        transition: 0.25s ease;
+      }
+
+      .radio-tile:hover {
+        border-color: #2260ff;
+      }
+
+      .radio-tile:hover:before {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      .radio-icon svg {
+        width: 2rem;
+        height: 2rem;
+        fill: #494949;
+      }
+
+      .radio-label {
+        color: #707070;
+        transition: 0.375s ease;
+        text-align: center;
+        font-size: 13px;
+      }
+
+      .radio-input {
+        clip: rect(0 0 0 0);
+        -webkit-clip-path: inset(100%);
+        clip-path: inset(100%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+      @media screen and (max-width: 600px) {
+        .container {
+          width: 90%;
+        }
+      }
     </style>
   </head>
   <body>
-    <div class="container mt-4">
-      <h1 class="text-center neonText">Sticker Price Calculator</h1>
+    <div class="container neumorphism mt-4">
+      <h1 class="text-center neonText" style="padding: 20px">
+        Sticker Price Calculator
+      </h1>
 
       <form class="form-row">
         <div class="form-group col-md-12">
+          <div id="shape" class="radio-inputs">
+            <label>
+              <input
+                class="radio-input"
+                type="radio"
+                name="shape"
+                value="standard"
+              />
+              <span class="radio-tile">
+                <span class="radio-icon">
+                  <svg
+                    width="800px"
+                    height="800px"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.4303 15.0014H4.40034C2.58034 15.0014 1.42034 13.0514 2.30034 11.4514L4.63034 7.21141L6.81034 3.24141C7.72034 1.59141 10.1003 1.59141 11.0103 3.24141L13.2003 7.21141L14.2503 9.12141L15.5303 11.4514C16.4103 13.0514 15.2503 15.0014 13.4303 15.0014Z"
+                    />
+                    <path
+                      d="M22.6507 15.999C22.6507 19.589 19.7407 22.499 16.1507 22.499C13.1007 22.499 10.5507 20.409 9.84075 17.569C9.77075 17.269 10.0007 16.999 10.3107 16.999H14.0807C15.4707 16.999 16.7307 16.279 17.4407 15.089C18.1407 13.889 18.1707 12.449 17.4907 11.229L16.9907 10.309C16.8007 9.96898 17.0707 9.55898 17.4507 9.62898C20.4107 10.229 22.6507 12.849 22.6507 15.999Z"
+                    /></svg
+                ></span>
+                <span class="radio-label">Simple</span>
+              </span>
+            </label>
+            <label>
+              <input
+                checked=""
+                class="radio-input"
+                type="radio"
+                name="shape"
+                value="custom"
+              />
+              <span class="radio-tile">
+                <span class="radio-icon">
+                  <svg
+                    version="1.1"
+                    id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    x="0px"
+                    y="0px"
+                    width="582.617px"
+                    height="582.618px"
+                    viewBox="0 0 582.617 582.618"
+                    style="enable-background: new 0 0 582.617 582.618"
+                    xml:space="preserve"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          d="M537.705,225.35c3.701-12.062,5.701-24.865,5.701-38.14c0-71.77-58.182-129.952-129.951-129.952
+                   c-70.9,0-128.499,56.788-129.885,127.354c-13.044-10.958-29.865-17.567-48.238-17.567c-32.748,0-60.582,20.979-70.833,50.227
+                   c8.984-1.542,18.204-2.39,27.62-2.39c42.938,0,83.453,16.567,114.081,46.65c16.328,16.038,28.85,34.963,37.123,55.631h64.533
+                   h5.602h123.23c25.367,0,45.93-20.563,45.93-45.931C582.615,246.21,562.596,225.901,537.705,225.35z"
+                        />
+                        <path
+                          d="M52.161,525.359h139.955h6.362h195.935c47.078,0,85.246-38.164,85.246-85.246c0-47.078-38.164-85.245-85.246-85.245
+                   c-20.863,0-39.967,7.506-54.783,19.951c-0.404-20.523-5.018-40.006-12.975-57.656c-23.117-51.273-74.636-86.98-134.536-86.98
+                   c-10.759,0-21.239,1.181-31.343,3.369C94.327,247.927,44.532,307.022,44.532,377.772c0,15.076,2.274,29.617,6.472,43.317
+                   C22.735,421.713,0,444.777,0,473.195C-0.003,502.001,23.351,525.359,52.161,525.359z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </span>
+                <span class="radio-label">Custom</span>
+              </span>
+            </label>
+            <label>
+              <input
+                class="radio-input"
+                type="radio"
+                name="shape"
+                value="transfer"
+              />
+              <span class="radio-tile">
+                <span class="radio-icon">
+                  <svg
+                    version="1.1"
+                    id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 511.974 511.974"
+                    style="enable-background: new 0 0 511.974 511.974"
+                    xml:space="preserve"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          d="M505.728,347.549l-42.645-42.645c-8.341-8.341-21.824-8.341-30.165,0c-8.341,8.32-8.341,21.824,0,30.165l6.251,6.251
+                   h-30.443c11.477-26.155,17.941-54.997,17.941-85.333s-6.464-59.179-17.941-85.333h30.443l-6.251,6.251
+                   c-8.341,8.32-8.341,21.824,0,30.165c4.16,4.16,9.621,6.251,15.083,6.251c5.461,0,10.923-2.091,15.083-6.251l42.645-42.645
+                   c1.984-1.984,3.541-4.331,4.629-6.955c2.155-5.205,2.155-11.093,0-16.299c-1.088-2.624-2.645-4.971-4.629-6.955l-42.645-42.645
+                   c-8.341-8.341-21.824-8.341-30.165,0c-8.341,8.32-8.341,21.824,0,30.165l6.251,6.251h-55.573
+                   c-38.976-51.712-100.693-85.333-170.261-85.333C95.701,42.653,0,138.355,0,255.987S95.701,469.32,213.333,469.32
+                   c69.568,0,131.285-33.643,170.261-85.333h55.573l-6.251,6.251c-8.341,8.32-8.341,21.824,0,30.165
+                   c4.16,4.16,9.621,6.251,15.083,6.251c5.461,0,10.923-2.091,15.083-6.251l42.645-42.645c1.984-1.984,3.541-4.331,4.629-6.955
+                   c2.155-5.205,2.155-11.093,0-16.299C509.269,351.88,507.712,349.533,505.728,347.549z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </span>
+                <span class="radio-label">Transfer</span>
+              </span>
+            </label>
+          </div>
+        </div>
+        <!-- <div class="form-group col-md-12">
           <label for="shape">Select Sticker Shape:</label>
           <select class="form-control" id="shape">
             <option value="standard">Rectangle, Circle, Square &hellip;</option>
             <option value="custom">Custom Shape</option>
             <option value="transfer">Transfer Sticker</option>
           </select>
-        </div>
+        </div> -->
 
         <div class="form-group col-md-5 col-6">
           <label for="width">Width (mm):</label>
@@ -183,20 +447,30 @@
             class="form-control"
             id="percentageDiscount"
             value="0"
+            max="100"
+            oninput="this.value = Math.min(this.value, 100)"
           />
         </div>
-
+       
         <button
+          style="
+            width: 250px;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%);
+            margin-top: 10px;
+          "
           type="button"
-          class="btn btn-primary"
+          class="btn btn-neumorphism"
           onclick="calculatePrice()"
         >
           Calculate Price
         </button>
       </form>
-
-      <h2 class="mt-4">Result:</h2>
-      <p id="result" class="lead">Price will be displayed here</p>
+      <div class="result">
+        <h2 class="mt-4">Result:</h2>
+        <p id="result" class="lead">Price will be displayed here</p>
+      </div>
     </div>
 
     <!-- Add Bootstrap JS and Popper.js -->
@@ -205,26 +479,34 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Sticky Footer -->
     <footer>
-        &copy; 2024 Made by Wally for ACS
-        <img
-          src="/static/img/ACS.png"
-          style="margin-bottom: 5px"
-          alt="ACS Logo"
-          width="20"
-          height="20"
-        />. Other services (e.g. <a style="color:yellow;" href="embroidcalculator.html">Embroidery Calculator</a>)
-     
+      &copy; 2024 Made by Wally for ACS
+      <img
+        src="/static/img/ACS.png"
+        style="margin-bottom: 5px"
+        alt="ACS Logo"
+        width="20"
+        height="20"
+      />. Other services (e.g.
+      <a style="color: yellow" href="embroidcalculator.html"
+        >Embroidery Calculator</a
+      >)
     </footer>
 
     <script>
+     
+
       function calculatePrice() {
-        const shape = document.getElementById("shape").value;
+        
+        var type;
+        var install="";
+        var uv="";
+        var disc="";
+        var withoutDiscount;
+        const shape = document.querySelector('input[name="shape"]:checked').value;
         const width = parseFloat(document.getElementById("width").value);
         const height = parseFloat(document.getElementById("height").value);
         const quantity = parseInt(document.getElementById("quantity").value);
-        const laminate = document.querySelector(
-          'input[name="laminate"]:checked'
-        ).value;
+        const laminate = document.querySelector('input[name="laminate"]:checked').value;
 
         const discount = document.getElementById("percentageDiscount").value;
         const installReady = document.querySelector(
@@ -241,14 +523,22 @@
 
         if (shape === "standard") {
           basePrice = (width + height) / 2 / 50;
+          type = "Standard Shape Sticker";
         } else if (shape === "custom") {
           basePrice = ((width + height) / 2 / 50) * 1.1;
+          type = "Custom Shape Sticker";
         } else if (shape === "transfer") {
           basePrice = ((width + height) / 2 / 50) * 1.1;
+          type = "Transfer Sticker";
           // Additional charge for Transfer Sticker based on Install Ready
           const installReady = document.querySelector(
             'input[name="installReady"]:checked'
           ).value;
+          if (installReady === "yes"){
+            install = "/Install Ready";
+          }else{
+            install = "/Self Install";
+          }
           if (installReady === "yes" && complexityLevel === "hard") {
             basePrice *= 1.4; // 40% on top of price
           } // Additional charge for Hard Install Ready
@@ -291,19 +581,21 @@
         // Laminate cost
         if (laminate === "yes") {
           totalPrice *= 1.2;
+          uv = "/Laminate";
         }
 
         // Round to the nearest 0.5
         totalPrice = Math.round(totalPrice * 2) / 2;
-
+        withoutDiscount = totalPrice;
         // Apply Percentage Discount
         if (discount > 0) {
           totalPrice *= 1 - discount / 100;
+          disc ="("+ discount + "% Discount => $"+ totalPrice.toFixed(2)+")";
         }
 
         document.getElementById(
           "result"
-        ).textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+        ).textContent = `${quantity} x ${type} (${width}mm x ${height}mm${uv}${install}): $${withoutDiscount.toFixed(2)} ${disc}`;
         document
           .getElementById("result")
           .scrollIntoView({ behavior: "smooth" });
@@ -315,7 +607,10 @@
           "complexityLevelGroup"
         );
 
-        if (this.value === "transfer") {
+        if (
+          document.querySelector('input[name="shape"]:checked').value ===
+          "transfer"
+        ) {
           installReadyGroup.style.display = "block";
           // Display Complexity Level only if Install Ready is selected
           complexityLevelGroup.style.display =
@@ -337,6 +632,12 @@
           complexityLevelGroup.style.display =
             this.value === "yes" ? "block" : "none";
         });
+      });
+
+      $(document).keypress(function(e) {
+        if(e.which == 13) {
+          calculatePrice();
+        }
       });
     </script>
   </body>
