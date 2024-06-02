@@ -1,0 +1,52 @@
+#map {
+    width: 100%;
+    height: 100vh; /* Ensure the map takes full height of the screen */
+  }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+
+    z-index: 1000; /* Ensures the navbar stays on top */
+  }
+
+  .navbar a {
+    color: white;
+    text-align: center;
+    padding: 5px 20px;
+    text-decoration: none;
+    font-size: 17px;
+    background-color: rgb(50, 124, 0);
+    margin: 5px;
+    border-radius: 50px;
+  }
+
+  .navbar a:hover {
+    background-color: rgb(131, 255, 48);
+    color: black;
+  }
+  .navbar a:active {
+    transform: scale(0.9);
+  }
+
+
+  .bottom-right {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+color:rgb(0, 247, 255);
+font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    z-index: 1000; /* Ensures the navbar stays on top */
+}
