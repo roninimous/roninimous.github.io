@@ -553,10 +553,10 @@
         let totalPrice = basePrice * quantity;
 
         // Quantity-based additional charges
-        if (quantity < 10) {
+        if (quantity <= 10) {
+          totalPrice *= 2;
+        } else if (quantity <= 25) {
           totalPrice *= 1.5;
-        } else if (quantity < 25) {
-          totalPrice *= 1.35;
         } else if (quantity < 50) {
           totalPrice *= 1.2;
         }
