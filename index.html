@@ -75,7 +75,6 @@
       nav.scrolled {
         background-color: white;
         color: #000;
-        font-weight: bold;
       }
 
       nav.scrolled .menu li a {
@@ -222,34 +221,6 @@
         padding: 10px 0;
       }
       @media (max-width: 768px) {
-        nav {
-          position: fixed;
-          z-index: 1000;
-          background-color: white;
-          color: #000;
-          font-weight: bold;
-        }
-        nav .brand {
-          font-size: 24px;
-          font-weight: bold;
-        }
-        nav .menu {
-          display: flex;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-        nav .menu li {
-          margin: 0 10px;
-        }
-        nav .menu li a {
-          color: #000;
-          text-decoration: none;
-          transition: color 0.3s ease;
-        }
-        nav .menu li a:hover {
-          color: #9933ff;
-        }
         section {
           min-height: 60vh;
         }
@@ -486,7 +457,7 @@
         const navbar = document.querySelector("nav");
 
         window.addEventListener("scroll", () => {
-          if (window.scrollY > window.innerHeight) {
+          if (window.scrollY > 20) {
             navbar.classList.add("scrolled");
           } else {
             navbar.classList.remove("scrolled");
