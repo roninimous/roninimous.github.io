@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Ronin's Portfolio</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Rubik"
+    />
+    <style>
+      body {
+        font-family: "Rubik", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-image: linear-gradient(black, #101010);
+        background: -webkit-linear-gradient(
+          black,
+          #101010
+        ); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(
+          black,
+          #101010
+        ); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(
+          black,
+          #101010
+        ); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(black, #101010); /* Standard syntax */
+        color: white;
+      }
+      /* Add padding to sections and use a pseudo-element for offset */
+      section {
+        position: relative;
+        padding-top: 20px; /* Adjust this value based on the height of your nav */
+        margin-top: -20px; /* Adjust this value based on the height of your nav */
+        min-height: 30vh;
+      }
+      nav {
+        width: 100%;
+        position: fixed;
+        z-index: 1000;
+        background: transparent;
+        color: #fff;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      nav .brand {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      nav .menu {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      nav .menu li {
+        margin: 0 10px;
+      }
+      nav .menu li a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      nav .menu li a:hover {
+        color: #9933ff;
+      }
+      nav .menu li a.active {
+        color: #9933ff; /* Change this to the color you want for the active link */
+      }
+      /* on computer when scroll after 100px the nav bar will change to white */
+
+      nav.scrolled {
+        background-color: white;
+        color: #000;
+        font-weight: bold;
+      }
+
+      nav.scrolled .menu li a {
+        color: #000;
+      }
+
+      nav.scrolled .menu li a:hover {
+        color: #9933ff;
+      }
+
+      .hero {
+        height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        position: relative;
+      }
+      .hero h1 {
+        font-size: 4em;
+        margin: 0;
+        animation: fadeInDown 1s ease-out;
+      }
+      .hero p {
+        font-size: 1.5em;
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero .line {
+        width: 0;
+        height: 5px;
+        background-color: #9933ff;
+        margin: 20px auto;
+        animation: lineGrow 1s ease-out forwards;
+      }
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-70px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(70px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes lineGrow {
+        from {
+          width: 0;
+        }
+        to {
+          width: 200px;
+        }
+      }
+      .content {
+        margin: auto;
+        max-width: 1000px;
+        padding: 60px 20px;
+        text-align: center;
+      }
+      .content h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        position: relative;
+        display: inline-block;
+      }
+      .content h2::after {
+        content: "";
+        width: 50px;
+        height: 4px;
+        background: #9933ff;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .skills,
+      .social-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .skill,
+      .social-link {
+        margin: 10px;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .skill:hover,
+      .social-link:hover {
+        transform: scale(1.1);
+      }
+      .skill img,
+      .social-link img {
+        width: 50px;
+        height: 50px;
+      }
+      .skill p {
+        color: #000;
+      }
+      .projects {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .project {
+        margin: 10px;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        width: 250px; /* Set a fixed width */
+      }
+      .project:hover {
+        transform: scale(1.05);
+      }
+      .project iframe {
+        width: 100%;
+        height: 400px; /* Increase the height for better visibility */
+        border: none;
+        border-radius: 10px;
+        overflow: hidden; /* Hide the scrollbars */
+      }
+      footer {
+        background: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+      }
+      @media (max-width: 768px) {
+        nav {
+          position: fixed;
+          z-index: 1000;
+          background-color: white;
+          color: #000;
+          font-weight: bold;
+        }
+        nav .brand {
+          font-size: 24px;
+          font-weight: bold;
+        }
+        nav .menu {
+          display: flex;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        nav .menu li {
+          margin: 0 10px;
+        }
+        nav .menu li a {
+          color: #000;
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+        nav .menu li a:hover {
+          color: #9933ff;
+        }
+        section {
+          min-height: 60vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="brand">RONIN</div>
+      <ul class="menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#social">Social Links</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero" id="home">
+      <div>
+        <h1>Hello, I'm Ronin!</h1>
+        <div class="line"></div>
+        <p>Welcome to my portfolio</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <section id="about">
+        <h2>About Me</h2>
+        <p>
+          I’m a complicated guy, but I like to keep things simple. That’s
+          complicated, right? Throughout my career, I've learned many different
+          skills and picked things up quickly. Before AI gained popularity, I
+          excelled at the art of copying and pasting. Don't get me wrong—by
+          copying and pasting, I don't mean plagiarism. I was focusing on
+          knowing how to copy and where to paste exactly to make things work.
+          But now, with AI becoming a major part of today’s world, I’ve embraced
+          it fully. Utilizing AI to enhance my work and skills, I’ve seen
+          remarkable improvements in a short span of time. Combining AI with my
+          own expertise, I’m excited to see what else I can achieve in the
+          future.
+        </p>
+      </section>
+      <section id="skills">
+        <h2>My Skills</h2>
+        <div class="skills">
+          <div class="skill">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+              alt="JavaScript"
+            />
+            <p>JavaScript</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+              alt="HTML5"
+            />
+            <p>HTML5</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+              alt="CSS3"
+            />
+            <p>CSS3</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+              alt="Python"
+            />
+            <p>Python</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
+              alt="PHP"
+            />
+            <p>PHP</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+              alt="MySQL"
+            />
+            <p>MySQL</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png"
+              alt="Laravel"
+            />
+            <p>Laravel</p>
+          </div>
+          <div class="skill">
+            <img src="https://svgur.com/i/1j0.svg" alt="Twig" />
+            <p>Twig</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
+              alt="Bootstrap"
+            />
+            <p>Bootstrap</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://blog.equinix.com/wp-content/uploads/2020/01/cisco-logo-1024x1024.png"
+              alt="Cisco Network"
+            />
+            <p>Cisco Network</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"
+              alt="Flask"
+            />
+            <p>Flask</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+              alt="Node.js"
+            />
+            <p>Node.js</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn3.iconfinder.com/data/icons/social-media-2068/64/_shopping-512.png"
+              alt="Shopify Liquid"
+            />
+            <p>Shopify</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://i0.wp.com/wordpressfoundation.org/content/uploads/2022/02/WordPress-logotype-wmark.png?fit=1000%2C1000&ssl=1"
+              alt="Wordpress"
+            />
+            <p>Wordpress</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/5968/5968753.png"
+              alt="Wordpress"
+            />
+            <p>Wix</p>
+          </div>
+          <div class="skill">
+            <img
+              src="https://avatars.githubusercontent.com/u/638632?s=200&v=4"
+              alt="Guzzle Http"
+            />
+            <p>Guzzle Http</p>
+          </div>
+        </div>
+      </section>
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects">
+          <div class="project">
+            <a href="beentogether.html" target="_blank">
+              <iframe src="beentogether.html"></iframe>
+            </a>
+            <p>Project 1</p>
+          </div>
+          <div class="project">
+            <a href="acscalculator.html" target="_blank">
+              <iframe src="acscalculator.html"></iframe>
+            </a>
+            <p>Project 2</p>
+          </div>
+          <div class="project">
+            <a href="goallan.html" target="_blank">
+              <iframe src="goallan.html"></iframe>
+            </a>
+            <p>Project 3</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="social">
+        <h2>Social Links</h2>
+        <div class="social-links">
+          <a
+            href="https://www.linkedin.com/in/keosombath-nou/"
+            target="_blank"
+            class="social-link"
+            ><img src="./static/img/linkedin.png" alt="LinkedIn"
+          /></a>
+          <a
+            href="https://github.com/roninimous"
+            target="_blank"
+            class="social-link"
+            ><img src="./static/img/github.png" alt="GitHub"
+          /></a>
+          <a
+            href="https://discord.gg/r7567Bt"
+            target="_blank"
+            class="social-link"
+            ><img src="./static/img/discord.png" alt="Discord"
+          /></a>
+          <a
+            href="https://twitch.tv/roninimous"
+            target="_blank"
+            class="social-link"
+            ><img src="./static/img/twitch.png" alt="Twitch"
+          /></a>
+          <a
+            href="https://www.facebook.com/roninimous"
+            target="_blank"
+            class="social-link"
+            ><img src="./static/img/fbgaming.png" alt="Facebook"
+          /></a>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>This website is developed by Keosombath Nou aka RONIN</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll("nav ul li a").forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+              behavior: "smooth",
+            });
+          });
+        });
+
+        const navbar = document.querySelector("nav");
+
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > window.innerHeight) {
+            navbar.classList.add("scrolled");
+          } else {
+            navbar.classList.remove("scrolled");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
