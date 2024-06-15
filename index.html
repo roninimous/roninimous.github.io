@@ -5,30 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Ronin's Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.svg" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Rubik"
     />
+    <script
+      src="https://kit.fontawesome.com/c2a58305cc.js"
+      crossorigin="anonymous"
+    ></script>
     <style>
+      .gradient-text {
+        position: relative;
+        display: inline-block;
+
+        background: -webkit-linear-gradient(
+          180deg,
+          #8053f6,
+          #b63bb0,
+          #e73e65,
+          #f67234,
+          #ff8f19
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
       body {
         font-family: "Rubik", sans-serif;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        background-image: linear-gradient(black, #101010);
+        background-image: linear-gradient(#101218, #101010);
         background: -webkit-linear-gradient(
-          black,
+          #101218,
           #101010
         ); /* For Safari 5.1 to 6.0 */
         background: -o-linear-gradient(
-          black,
+          #101218,
           #101010
         ); /* For Opera 11.1 to 12.0 */
         background: -moz-linear-gradient(
-          black,
+          #101218,
           #101010
         ); /* For Firefox 3.6 to 15 */
-        background: linear-gradient(black, #101010); /* Standard syntax */
+        background: linear-gradient(#101218, #101010); /* Standard syntax */
         color: white;
       }
       /* Add padding to sections and use a pseudo-element for offset */
@@ -65,24 +86,50 @@
         transition: color 0.3s ease;
       }
       nav .menu li a:hover {
-        color: #9933ff;
+        background: -webkit-linear-gradient(
+          180deg,
+          #8053f6,
+          #b63bb0,
+          #e73e65,
+          #f67234,
+          #ff8f19
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
       nav .menu li a.active {
-        color: #9933ff; /* Change this to the color you want for the active link */
+        background: -webkit-linear-gradient(
+          180deg,
+          #8053f6,
+          #b63bb0,
+          #e73e65,
+          #f67234,
+          #ff8f19
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; /* Change this to the color you want for the active link */
       }
       /* on computer when scroll after 100px the nav bar will change to white */
 
       nav.scrolled {
-        background-color: white;
-        color: #000;
+        backdrop-filter: blur(10px); /* applies the blur effect */
       }
-
-      nav.scrolled .menu li a {
-        color: #000;
+      nav.scrolled .menu li {
+        text-shadow: 1px 1px #101218;
       }
-
       nav.scrolled .menu li a:hover {
-        color: #9933ff;
+        background: -webkit-linear-gradient(
+          180deg,
+          #8053f6,
+          #b63bb0,
+          #e73e65,
+          #f67234,
+          #ff8f19
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: none;
       }
 
       .hero {
@@ -163,14 +210,12 @@
         left: 50%;
         transform: translateX(-50%);
       }
-      .skills,
-      .social-links {
+      .skills {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
       }
-      .skill,
-      .social-link {
+      .skill {
         margin: 10px;
         padding: 20px;
         background: white;
@@ -178,47 +223,167 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
       }
-      .skill:hover,
-      .social-link:hover {
+      .skill:hover {
         transform: scale(1.1);
       }
-      .skill img,
-      .social-link img {
+      .skill img {
         width: 50px;
         height: 50px;
       }
+
       .skill p {
         color: #000;
       }
       .projects {
         display: flex;
-        justify-content: center;
         flex-wrap: wrap;
-      }
-      .project {
-        margin: 10px;
+        justify-content: center;
+        gap: 20px;
         padding: 20px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-        width: 250px; /* Set a fixed width */
       }
-      .project:hover {
-        transform: scale(1.05);
+      .projects a {
+        text-decoration: none;
       }
-      .project iframe {
+
+      .project {
+        background-color: #20232a;
+        border-radius: 8px;
+        overflow: hidden;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 300px;
+      }
+
+      .project img {
         width: 100%;
-        height: 400px; /* Increase the height for better visibility */
-        border: none;
-        border-radius: 10px;
-        overflow: hidden; /* Hide the scrollbars */
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .project p {
+        text-decoration: none;
+        padding: 10px;
+        font-size: 18px;
+        margin: 0;
+      }
+
+      .project .description {
+        padding: 10px;
+        font-size: 14px;
+        color: #a9a9a9;
+      }
+
+      .project:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      /* New CSS for Private Projects */
+      #private-projects {
+        padding: 20px;
+      }
+
+      .private-projects {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .private-project {
+        background-color: #282c34;
+        border-radius: 8px;
+        padding: 20px;
+
+        max-width: 600px;
+        text-align: left;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .private-project p {
+        margin: 0;
+      }
+
+      .private-project .description {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #bbbbbb;
+      }
+
+      .private-project:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      #social {
+        padding: 20px;
+        text-align: center;
+      }
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .social-link {
+        font-size: 36px;
+        color: #ffffff;
+        transition: color 0.3s ease;
+      }
+
+      .social-link:hover {
+        background: -webkit-linear-gradient(
+          180deg,
+          #8053f6,
+          #b63bb0,
+          #e73e65,
+          #f67234,
+          #ff8f19
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
       footer {
-        background: #333;
+        background: -webkit-linear-gradient(
+          180deg,
+          #8053f6,
+          #b63bb0,
+          #e73e65,
+          #f67234,
+          #ff8f19
+        );
         color: #fff;
         text-align: center;
         padding: 10px 0;
+      }
+      ul.skills-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      ul.skills-list li {
+        background-color: #20232a;
+        border-radius: 8px;
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 18px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+
+      ul.skills-list li:hover {
+        background: -webkit-linear-gradient(
+          180deg,
+          #8053f6,
+          #b63bb0,
+          #e73e65,
+          #f67234,
+          #ff8f19
+        );
       }
       @media (max-width: 768px) {
         section {
@@ -229,7 +394,7 @@
   </head>
   <body>
     <nav>
-      <div class="brand">RONIN</div>
+      <div class="brand gradient-text">RONIN</div>
       <ul class="menu">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -241,7 +406,7 @@
 
     <div class="hero" id="home">
       <div>
-        <h1>Hello, I'm Ronin!</h1>
+        <h1 class="gradient-text">Hello, I'm Ronin!</h1>
         <div class="line"></div>
         <p>Welcome to my portfolio</p>
       </div>
@@ -249,7 +414,7 @@
 
     <div class="content">
       <section id="about">
-        <h2>About Me</h2>
+        <h2 class="gradient-text">About Me</h2>
         <p>
           I’m a complicated guy, but I like to keep things simple. That’s
           complicated, right? Throughout my career, I've learned many different
@@ -265,176 +430,210 @@
         </p>
       </section>
       <section id="skills">
-        <h2>My Skills</h2>
-        <div class="skills">
-          <div class="skill">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-              alt="JavaScript"
-            />
-            <p>JavaScript</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
-              alt="HTML5"
-            />
-            <p>HTML5</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
-              alt="CSS3"
-            />
-            <p>CSS3</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-              alt="Python"
-            />
-            <p>Python</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
-              alt="PHP"
-            />
-            <p>PHP</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-              alt="MySQL"
-            />
-            <p>MySQL</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png"
-              alt="Laravel"
-            />
-            <p>Laravel</p>
-          </div>
-          <div class="skill">
-            <img src="https://svgur.com/i/1j0.svg" alt="Twig" />
-            <p>Twig</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
-              alt="Bootstrap"
-            />
-            <p>Bootstrap</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://blog.equinix.com/wp-content/uploads/2020/01/cisco-logo-1024x1024.png"
-              alt="Cisco Network"
-            />
-            <p>Cisco Network</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"
-              alt="Flask"
-            />
-            <p>Flask</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-              alt="Node.js"
-            />
-            <p>Node.js</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn3.iconfinder.com/data/icons/social-media-2068/64/_shopping-512.png"
-              alt="Shopify Liquid"
-            />
-            <p>Shopify</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://i0.wp.com/wordpressfoundation.org/content/uploads/2022/02/WordPress-logotype-wmark.png?fit=1000%2C1000&ssl=1"
-              alt="Wordpress"
-            />
-            <p>Wordpress</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/5968/5968753.png"
-              alt="Wordpress"
-            />
-            <p>Wix</p>
-          </div>
-          <div class="skill">
-            <img
-              src="https://avatars.githubusercontent.com/u/638632?s=200&v=4"
-              alt="Guzzle Http"
-            />
-            <p>Guzzle Http</p>
-          </div>
-        </div>
+        <h2 class="gradient-text">My Skills</h2>
+        <ul class="skills-list">
+          <li>JavaScript</li>
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>Python</li>
+          <li>PHP</li>
+          <li>MySQL</li>
+          <li>Laravel</li>
+          <li>Twig</li>
+          <li>Bootstrap</li>
+          <li>Cisco Network</li>
+          <li>Flask</li>
+          <li>Node.js</li>
+          <li>Shopify Liquid</li>
+          <li>Wordpress</li>
+          <li>Wix</li>
+          <li>Guzzle Http</li>
+        </ul>
       </section>
+
       <section id="projects">
-        <h2>Projects</h2>
+        <h2 class="gradient-text">Projects</h2>
         <div class="projects">
-          <div class="project">
-            <a href="beentogether.html" target="_blank">
-              <iframe src="beentogether.html"></iframe>
-            </a>
-            <p>Project 1</p>
-          </div>
-          <div class="project">
-            <a href="acscalculator.html" target="_blank">
-              <iframe src="acscalculator.html"></iframe>
-            </a>
-            <p>Project 2</p>
-          </div>
-          <div class="project">
-            <a href="goallan.html" target="_blank">
-              <iframe src="goallan.html"></iframe>
-            </a>
-            <p>Project 3</p>
-          </div>
+          <a href="beentogether.html" target="_blank" class="project">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrkV0pOM7Ksl35ta4hKmKpl0YXUXt_f17V4A&s"
+              alt="Project 1 Image"
+            />
+            <p class="gradient-text">Project 1: Been Together</p>
+            <p class="description">
+              An app that helps couples keep track of important dates and
+              anniversaries.
+            </p>
+          </a>
+          <a href="acscalculator.html" target="_blank" class="project">
+            <img
+              src="https://diginate.com/media/media/images/Homepage-Hero-6b.jpg"
+              alt="Project 2 Image"
+            />
+            <p class="gradient-text">Project 2: ACS Calculator</p>
+            <p class="description">
+              A tool for calculating the cost of ACS services quickly and
+              easily.
+            </p>
+          </a>
+          <a href="embroidcalculator.html" target="_blank" class="project">
+            <img
+              src="https://t3.ftcdn.net/jpg/06/04/12/34/360_F_604123415_eVHKjmnIpH6TflI1bffjRaiekjSlqkah.jpg"
+              alt="Project 3 Image"
+            />
+            <p class="gradient-text">Project 3: Embroidery Calculator</p>
+            <p class="description">
+              Helps embroidery businesses calculate pricing based on various
+              factors.
+            </p>
+          </a>
+          <a href="goallan.html" target="_blank" class="project">
+            <img
+              src="https://www.ultimateedgecommunications.com.au/wp-content/uploads/lsp_16x9-linktree-edm-release-may-2020-hero-socials-1_260520-024625-1.png"
+              alt="Project 4 Image"
+            />
+            <p class="gradient-text">Project 4: GoAllan Link Tree</p>
+            <p class="description">
+              A link tree application for organizing and sharing multiple links.
+            </p>
+          </a>
+          <a href="/pubg-mortar/index.html" target="_blank" class="project">
+            <img
+              src="https://steamuserimages-a.akamaihd.net/ugc/1863938804597354650/8363FAF99D03AC2DB2803B7AF8B5BBB0D2F1632E/"
+              alt="Project 5 Image"
+            />
+            <p class="gradient-text">Project 5: PUBG Mortar Calculator</p>
+            <p class="description">
+              A calculator tool for PUBG players to improve their mortar
+              accuracy.
+            </p>
+          </a>
+          <a href="/En.Decrypt/index.html" target="_blank" class="project">
+            <img
+              src="https://www.newsoftwares.net/blog/wp-content/uploads/2023/10/Folder-Encryption.png"
+              alt="Project 6 Image"
+            />
+            <p class="gradient-text">Project 6: Encrypt/Decrypt</p>
+            <p class="description">
+              A tool for encrypting and decrypting sensitive information
+              securely.
+            </p>
+          </a>
         </div>
       </section>
 
+      <section id="private-projects">
+        <h2 class="gradient-text">Private Projects</h2>
+        <div class="private-projects">
+          <div class="private-project">
+            <p class="gradient-text">Staff Clockin System</p>
+            <p class="description">
+              The Staff Clockin System is a private project designed to help
+              businesses efficiently record employee clock-in and clock-out
+              times. This system enables businesses to export records into
+              neatly formatted timesheets in Excel, ensuring streamlined time
+              management and payroll processing.
+            </p>
+          </div>
+          <div class="private-project">
+            <p class="gradient-text">Recruitment Agency Website</p>
+            <p class="description">
+              I developed a comprehensive website for a recruitment agency,
+              showcasing their services to attract potential clients. The
+              website includes a job posting function, allowing the agency to
+              post vacancies and manage applications seamlessly.
+            </p>
+          </div>
+          <div class="private-project">
+            <p class="gradient-text">Cleaning Company Website</p>
+            <p class="description">
+              I created a user-friendly website for a cleaning company, enabling
+              customers to book cleaning services online with an instant
+              estimate quote feature. The website integrates with a Telegram bot
+              to notify employees of new bookings, enhancing operational
+              efficiency.
+            </p>
+          </div>
+          <div class="private-project">
+            <p class="gradient-text">Automate Data Entry Software</p>
+            <p class="description">
+              I developed an automated data entry software for the finance
+              department to streamline the process of transferring worker data
+              from Excel spreadsheets into government tax PDF forms. The
+              software accurately reads the Excel file and inputs data into the
+              correct fields on the PDF form, saving time and reducing errors.
+            </p>
+          </div>
+          <div class="private-project">
+            <p class="gradient-text">Sticker Business Website</p>
+            <p class="description">
+              Utilizing the Shopify eCommerce platform, I developed a website
+              for a custom sticker business. The site allows users to order and
+              purchase custom stickers online. I customized the Liquid theme to
+              meet the specific needs of the client, ensuring a personalized
+              shopping experience.
+            </p>
+          </div>
+          <div class="private-project">
+            <p class="gradient-text">High Visibility Retail Website</p>
+            <p class="description">
+              I built a Shopify-based website for a business selling workwear
+              clothing. The site provides a platform for customers to order and
+              purchase high-visibility workwear. I tailored the Liquid theme to
+              align with the client's requirements, offering a customized and
+              professional online store.
+            </p>
+          </div>
+          <div class="private-project">
+            <p class="gradient-text">Jumping Castle Website</p>
+            <p class="description">
+              Initially, I developed a booking and payment website for a jumping
+              castle rental business using Shopify. As the client's needs
+              evolved, I transitioned the website to a custom solution built
+              with Laravel, providing greater customization options and
+              flexibility to meet their specific requirements.
+            </p>
+          </div>
+        </div>
+      </section>
       <section id="social">
-        <h2>Social Links</h2>
+        <h2 class="gradient-text">Social Links</h2>
         <div class="social-links">
           <a
             href="https://www.linkedin.com/in/keosombath-nou/"
             target="_blank"
             class="social-link"
-            ><img src="./static/img/linkedin.png" alt="LinkedIn"
-          /></a>
+          >
+            <i class="fab fa-fw fa-linkedin"></i>
+          </a>
           <a
             href="https://github.com/roninimous"
             target="_blank"
             class="social-link"
-            ><img src="./static/img/github.png" alt="GitHub"
-          /></a>
+          >
+            <i class="fa-brands fa-fw fa-github"></i>
+          </a>
           <a
             href="https://discord.gg/r7567Bt"
             target="_blank"
             class="social-link"
-            ><img src="./static/img/discord.png" alt="Discord"
-          /></a>
+          >
+            <i class="fab fa-fw fa-discord"></i>
+          </a>
           <a
             href="https://twitch.tv/roninimous"
             target="_blank"
             class="social-link"
-            ><img src="./static/img/twitch.png" alt="Twitch"
-          /></a>
+          >
+            <i class="fab fa-fw fa-twitch"></i>
+          </a>
           <a
             href="https://www.facebook.com/roninimous"
             target="_blank"
             class="social-link"
-            ><img src="./static/img/fbgaming.png" alt="Facebook"
-          /></a>
+          >
+            <i class="fab fa-fw fa-facebook"></i>
+          </a>
         </div>
       </section>
     </div>

@@ -13,9 +13,6 @@ const map = L.map('map', {
 // Add the image overlay
 L.imageOverlay('https://s3.ap-southeast-2.amazonaws.com/test.goallan.com.au/deston.png', imageBounds).addTo(map);
 
-// Adjust the map zoom to fit the bounds
-// map.fitBounds(imageBounds);
-
 // Variables to store the start and end points
 let startPoint = null;
 let endPoint = null;
@@ -23,10 +20,11 @@ let startMarker = null;
 let endMarker = null;
 let polyline = null;
 let distanceMarker = null;
+let radiusCircle = null;
+let radiusLines = [];
 
 // Array of given numbers
 const numberArray = [121,133,145,157,169,181,193,204,216,228,239,250,262,273,284,295,307,317,328,339,350,360,371,381,391,401,411,421,431,440,450,459,468,477,486,495,503,512,520,528,536,544,551,559,566,573,580,587,593,600,606,612,618,624,629,634,639,644,649,653,658,662,666,669,673,676,679,682,685,687,689,691,693,695,696,697,698,699,699.25,699.5,699.75,700];
-
 
 // Function to calculate distance
 function calculateDistance(point1, point2) {
@@ -43,6 +41,31 @@ function findClosestNumbers(target, array) {
     return [sortedArray[0], sortedArray[1]];
 }
 
+// Function to draw radius circle and lines
+function drawRadius(point) {
+    if (radiusCircle) {
+        map.removeLayer(radiusCircle);
+    }
+    radiusCircle = L.circle(point, {
+        radius: 700,
+        color: 'red',
+        fillOpacity: 0.1
+    }).addTo(map);
+
+    radiusLines.forEach(line => map.removeLayer(line));
+    radiusLines = [];
+
+    for (let i = 100; i <= 700; i += 100) {
+        const circle = L.circle(point, {
+            radius: i,
+            color: 'black',
+            weight: 1,
+            fillOpacity: 0
+        }).addTo(map);
+        radiusLines.push(circle);
+    }
+}
+
 // Add click event to the map
 map.on('click', function(e) {
     const latlng = e.latlng;
@@ -54,14 +77,28 @@ map.on('click', function(e) {
         }
         startPoint = point;
         startMarker = L.marker(startPoint).addTo(map);
+        drawRadius(startPoint);
     } else {
+        const distance = calculateDistance(startPoint, point);
+        if (distance > 700) {
+            if (startMarker) {
+                map.removeLayer(startMarker);
+            }
+            if (radiusCircle) {
+                map.removeLayer(radiusCircle);
+            }
+            radiusLines.forEach(line => map.removeLayer(line));
+            radiusLines = [];
+            startPoint = null;
+            endPoint = null;
+            return;
+        }
         if (endMarker) {
             map.removeLayer(endMarker);
         }
         endPoint = point;
         endMarker = L.marker(endPoint).addTo(map);
 
-        const distance = calculateDistance(startPoint, endPoint);
         const [closestNumber, secondClosestNumber] = findClosestNumbers(distance, numberArray);
 
         // Draw the line
@@ -86,33 +123,55 @@ map.on('click', function(e) {
         // Reset points for next calculation
         startPoint = null;
         endPoint = null;
-    }
-});
-
-// Handle keypress events
-document.addEventListener('keypress', function(e) {
-    if (e.key === 'c' || e.key === 'C') {
         if (startMarker) {
             map.removeLayer(startMarker);
             startMarker = null;
         }
-        if (endMarker) {
-            map.removeLayer(endMarker);
-            endMarker = null;
+        if (radiusCircle) {
+            map.removeLayer(radiusCircle);
         }
-        if (polyline) {
-            map.removeLayer(polyline);
-            polyline = null;
-        }
-        if (distanceMarker) {
-            map.removeLayer(distanceMarker);
-            distanceMarker = null;
-        }
-        startPoint = null;
-        endPoint = null;
+        radiusLines.forEach(line => map.removeLayer(line));
+        radiusLines = [];
     }
 });
 
+// Handle keypress events
+function clearMap() {
+    if (startMarker) {
+      map.removeLayer(startMarker);
+      startMarker = null;
+    }
+    if (endMarker) {
+      map.removeLayer(endMarker);
+      endMarker = null;
+    }
+    if (polyline) {
+      map.removeLayer(polyline);
+      polyline = null;
+    }
+    if (distanceMarker) {
+      map.removeLayer(distanceMarker);
+      distanceMarker = null;
+    }
+    if (radiusCircle) {
+      map.removeLayer(radiusCircle);
+      radiusCircle = null;
+    }
+    radiusLines.forEach(line => map.removeLayer(line));
+    radiusLines = [];
+    startPoint = null;
+    endPoint = null;
+  }
+
+  document.addEventListener('keypress', function(e) {
+    if (e.key === 'c' || e.key === 'C') {
+      clearMap();
+    }
+  });
+
+  document.getElementById('trigger-button').addEventListener('click', function() {
+    clearMap();
+  });
 
 // Change the cursor style to a circle
 document.getElementById('map').style.cursor = 'crosshair';
@@ -130,4 +189,3 @@ cursorStyle.innerHTML = `
     }
 `;
 document.head.appendChild(cursorStyle);
-
