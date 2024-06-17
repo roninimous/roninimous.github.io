@@ -235,6 +235,35 @@
       .skill p {
         color: #000;
       }
+      ul.skills-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      ul.skills-list li {
+        background-color: #20232a;
+        border-radius: 8px;
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 18px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+
+      ul.skills-list li:hover {
+        background: -webkit-linear-gradient(
+          180deg,
+          #8053f6,
+          #b63bb0,
+          #e73e65,
+          #f67234,
+          #ff8f19
+        );
+      }
       .projects {
         display: flex;
         flex-wrap: wrap;
@@ -357,38 +386,40 @@
         text-align: center;
         padding: 10px 0;
       }
-      ul.skills-list {
-        list-style: none;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-      }
 
-      ul.skills-list li {
-        background-color: #20232a;
-        border-radius: 8px;
-        padding: 10px 20px;
-        margin: 5px;
-        font-size: 18px;
-        text-align: center;
-        transition: background-color 0.3s ease;
-      }
-
-      ul.skills-list li:hover {
-        background: -webkit-linear-gradient(
-          180deg,
-          #8053f6,
-          #b63bb0,
-          #e73e65,
-          #f67234,
-          #ff8f19
-        );
-      }
       @media (max-width: 768px) {
         section {
           min-height: 60vh;
+        }
+
+        ul.skills-list {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 5px;
+        }
+
+        ul.skills-list li {
+          background-color: #20232a;
+          border-radius: 8px;
+          padding: 10px 10px;
+          margin: 5px;
+          font-size: 15px;
+          text-align: center;
+          transition: background-color 0.3s ease;
+        }
+
+        ul.skills-list li:hover {
+          background: -webkit-linear-gradient(
+            180deg,
+            #8053f6,
+            #b63bb0,
+            #e73e65,
+            #f67234,
+            #ff8f19
+          );
         }
       }
     </style>
@@ -433,22 +464,72 @@
       <section id="skills">
         <h2 class="gradient-text">My Skills</h2>
         <ul class="skills-list">
+          <!-- Programming Languages -->
           <li>JavaScript</li>
           <li>HTML5</li>
           <li>CSS3</li>
           <li>Python</li>
           <li>PHP</li>
           <li>MySQL</li>
+          <li>Java</li>
+
+          <!-- Frameworks and Libraries -->
           <li>Laravel</li>
           <li>Twig</li>
           <li>Bootstrap</li>
-          <li>Cisco Network</li>
           <li>Flask</li>
           <li>Node.js</li>
+
+          <!-- E-commerce Platforms -->
           <li>Shopify Liquid</li>
           <li>Wordpress</li>
           <li>Wix</li>
+
+          <!-- APIs and Integration -->
           <li>Guzzle Http</li>
+          <li>API Integration</li>
+          <li>Web Scraping</li>
+          <li>Email Automation</li>
+
+          <!-- Cloud Services -->
+          <li>Amazon Web Services</li>
+          <li>Microsoft Azure</li>
+          <li>Amazon S3</li>
+          <li>Amazon Route 53</li>
+          <li>Cloud Computing</li>
+
+          <!-- Operating Systems -->
+          <li>Mac OS</li>
+          <li>Linux</li>
+          <li>Windows Server</li>
+
+          <!-- Virtualization and Containerization -->
+          <li>VMware</li>
+          <li>Hyper-V</li>
+          <li>Load Balancing</li>
+
+          <!-- Networking -->
+          <li>Cisco Network</li>
+          <li>Router and Switch</li>
+          <li>Firewall</li>
+          <li>VPN</li>
+
+          <!-- System Administration -->
+          <li>Active Directory</li>
+          <li>Group Policy</li>
+          <li>Batch Scripting</li>
+
+          <!-- Development Tools -->
+          <li>Android Studio</li>
+          <li>Microsoft Exchange</li>
+          <li>Microsoft Sharepoint</li>
+          <li>Microsoft Office 365</li>
+          <li>Microsoft Power Automate</li>
+
+          <!-- Adobe Suite -->
+          <li>Adobe Illustrator</li>
+          <li>Adobe Photoshop</li>
+          <li>Adobe Lightroom</li>
         </ul>
       </section>
 
