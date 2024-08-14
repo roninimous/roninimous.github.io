@@ -374,6 +374,31 @@
             <label class="form-check-label" for="laminateNo">No</label>
           </div>
         </div>
+
+        <div class="form-group col-md-12">
+          <label>Finish:</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="finish"
+              value="gloss"
+              id="finishGloss"
+              checked
+            />
+            <label class="form-check-label" for="finishGloss">Gloss</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="finish"
+              value="matte"
+              id="finishMatte"
+            />
+            <label class="form-check-label" for="finishMatte">Matte</label>
+          </div>
+        </div>
         <!-- Install Ready for Transfer Sticker -->
         <div
           class="form-group col-md-12"
@@ -451,7 +476,7 @@
             oninput="this.value = Math.min(this.value, 100)"
           />
         </div>
-       
+
         <button
           style="
             width: 250px;
@@ -470,6 +495,7 @@
       <div class="result">
         <h2 class="mt-4">Result:</h2>
         <p id="result" class="lead">Price will be displayed here</p>
+        <p id="printable" class="lead" style="color: rgb(255, 255, 255);font-size: 13px;font-style: italic;"></p>
       </div>
     </div>
 
@@ -493,20 +519,25 @@
     </footer>
 
     <script>
-     
-
       function calculatePrice() {
-        
         var type;
-        var install="";
-        var uv="";
-        var disc="";
+        var install = "";
+        var uv = "";
+        var disc = "";
         var withoutDiscount;
-        const shape = document.querySelector('input[name="shape"]:checked').value;
+        var finished = "";
+        const shape = document.querySelector(
+          'input[name="shape"]:checked'
+        ).value;
         const width = parseFloat(document.getElementById("width").value);
         const height = parseFloat(document.getElementById("height").value);
         const quantity = parseInt(document.getElementById("quantity").value);
-        const laminate = document.querySelector('input[name="laminate"]:checked').value;
+        const laminate = document.querySelector(
+          'input[name="laminate"]:checked'
+        ).value;
+        const finish = document.querySelector(
+          'input[name="finish"]:checked'
+        ).value;
 
         const discount = document.getElementById("percentageDiscount").value;
         const installReady = document.querySelector(
@@ -534,9 +565,9 @@
           const installReady = document.querySelector(
             'input[name="installReady"]:checked'
           ).value;
-          if (installReady === "yes"){
+          if (installReady === "yes") {
             install = "/Install Ready";
-          }else{
+          } else {
             install = "/Self Install";
           }
           if (installReady === "yes" && complexityLevel === "hard") {
@@ -581,7 +612,13 @@
         // Laminate cost
         if (laminate === "yes") {
           totalPrice *= 1.2;
-          uv = "/Laminate";
+          uv = "/UV-Rated";
+        }
+
+        if (finish === "matte") {
+          finished = "/Matte";
+        } else {
+          finished = "/Gloss";
         }
 
         // Round to the nearest 0.5
@@ -590,12 +627,62 @@
         // Apply Percentage Discount
         if (discount > 0) {
           totalPrice *= 1 - discount / 100;
-          disc ="("+ discount + "% Discount => $"+ totalPrice.toFixed(2)+")";
+          disc =
+            "(" + discount + "% Discount => $" + totalPrice.toFixed(2) + ")";
+        }
+
+        //calcuate gap and stickers size taken per row of 1200mm
+        // Assuming height, width, and qty are already defined in mm
+        var needed_height_per_sticker = 14 + height;
+        var single_sticker_width = width + 14;
+
+        // Calculate the number of stickers that fit in a row without considering gaps
+        var stickers_per_row_no_gaps = Math.floor(1200 / single_sticker_width);
+
+        // Determine the number of gaps needed horizontally (after every two stickers)
+        var gaps_needed_horizontal = Math.floor(
+          (stickers_per_row_no_gaps - 1) / 2
+        ); // One gap after every two stickers horizontally
+
+        // Calculate the total width considering gaps
+        var total_width_with_gaps =
+          stickers_per_row_no_gaps * single_sticker_width +
+          gaps_needed_horizontal * 4;
+
+        // Adjust stickers per row based on actual total width with gaps
+        while (total_width_with_gaps > 1200) {
+          stickers_per_row_no_gaps--;
+          gaps_needed_horizontal = Math.floor(
+            (stickers_per_row_no_gaps - 1) / 2
+          );
+          total_width_with_gaps =
+            stickers_per_row_no_gaps * single_sticker_width +
+            gaps_needed_horizontal * 4;
+        }
+
+        var sticker_per_row = stickers_per_row_no_gaps;
+
+        // Calculate the number of rows needed for the given quantity
+        var rows_needed = Math.ceil(quantity / sticker_per_row);
+
+        // Calculate the total height considering gaps only if there are more than 1 row
+        var total_height_used = rows_needed * needed_height_per_sticker;
+
+        // Add vertical gaps if more than 1 row
+        if (rows_needed > 1) {
+          var gaps_needed_vertical = rows_needed - 1; // One gap between each row
+          total_height_used += gaps_needed_vertical * 4;
         }
 
         document.getElementById(
+          "printable"
+        ).textContent = `Printable Media Width: 1200mm. Stickers per row: ${sticker_per_row}. Least media height used per row: ${needed_height_per_sticker}mm. Total height used for ${quantity} stickers: ${total_height_used}mm`;
+
+        document.getElementById(
           "result"
-        ).textContent = `${quantity} x ${type} (${width}mm x ${height}mm${uv}${install}): $${withoutDiscount.toFixed(2)} ${disc}`;
+        ).textContent = `${quantity} x ${type} (${width}mm x ${height}mm${uv}${finished}${install}): $${withoutDiscount.toFixed(
+          2
+        )} ${disc}`;
         document
           .getElementById("result")
           .scrollIntoView({ behavior: "smooth" });
@@ -634,8 +721,8 @@
         });
       });
 
-      $(document).keypress(function(e) {
-        if(e.which == 13) {
+      $(document).keypress(function (e) {
+        if (e.which == 13) {
           calculatePrice();
         }
       });
