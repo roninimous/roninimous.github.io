@@ -202,6 +202,32 @@
           width: 90%;
         }
       }
+      table td{
+        padding:5px !important;
+    text-align: center;}
+    table th{
+      padding:5px !important;
+  text-align: center;}
+      .custom-table{
+        
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        border:none;
+      }
+      .table-bordered td,th{
+        border: none !important;
+      }
+      table tr:last-child td:first-child {
+     
+        border-bottom-left-radius: 10px;
+    }
+        
+    table tr:last-child td:last-child {
+       
+        border-bottom-right-radius: 10px !important;
+    }
     </style>
   </head>
   <body>
@@ -487,7 +513,7 @@
           "
           type="button"
           class="btn btn-neumorphism"
-          onclick="calculatePrice()"
+           onclick="calculatePrice(); calculatePriceForQuantities(); calculatePriceForSizes();"
         >
           Calculate Price
         </button>
@@ -497,6 +523,28 @@
         <p id="result" class="lead">Price will be displayed here</p>
         <p id="printable" class="lead" style="color: rgb(255, 255, 255);font-size: 13px;font-style: italic;"></p>
       </div>
+
+      <div class="result">
+        <h4 class="mt-4">Prices for Different Quantities:</h4>
+        <div id="priceComparison"></div>
+      </div>
+
+
+      <div class="result" id="squreResult">
+        <h4 class="mt-4">Prices for Equal Width and Height</h4>
+        <div id="priceComparisonSquare"></div>
+      </div>
+      
+      <div class="result">
+        <h4 class="mt-4">Prices for Fixed Heights with Widths Adjusted to Maintain Aspect Ratio:</h4>
+        <div id="priceComparisonHeight"></div>
+      </div>
+      
+      <div class="result">
+        <h4 class="mt-4"></h4>
+        <div id="priceComparisonWidth">Prices for Fixed Widths with Heights Adjusted to Maintain Aspect Ratio:</div>
+      </div>
+      
     </div>
 
     <!-- Add Bootstrap JS and Popper.js -->
@@ -724,8 +772,328 @@
       $(document).keypress(function (e) {
         if (e.which == 13) {
           calculatePrice();
+          calculatePriceForQuantities();
+          calculatePriceForSizes();
         }
       });
+
+
+
+      // calculate different qty prices
+      // calculate different qty prices
+function calculatePriceForQuantities() {
+  const quantities = [10, 25, 50, 100, 200, 300, 500, 1000, 2000];
+  const height = parseFloat(document.getElementById("height").value);
+  const width = parseFloat(document.getElementById("width").value);
+
+  const shape = document.querySelector('input[name="shape"]:checked').value;
+
+  let priceList = `<table class="table table-bordered custom-table table-striped"><thead><tr><th>Quantity</th><th>Normal Price</th><th>UV-Rated (Laminate) Price</th></tr></thead><tbody>`;
+
+  quantities.forEach(qty => {
+    let normalPrice = calculatePriceForQuantity(width, height, qty, shape, false); // Calculate normal price without UV
+    let uvRatedPrice = calculatePriceForQuantity(width, height, qty, shape, true); // Calculate UV-rated price with 20% markup
+
+    priceList += `<tr><td>${qty}</td><td>$${normalPrice.toFixed(2)}</td><td>$${uvRatedPrice.toFixed(2)}</td></tr>`;
+  });
+
+  priceList += `</tbody></table>`;
+
+  document.getElementById("priceComparison").innerHTML = priceList;
+}
+
+// Helper function to calculate price for a specific quantity
+function calculatePriceForQuantity(width, height, quantity, shape, applyUV) {
+  let basePrice;
+
+  if (shape === "standard") {
+    basePrice = (width + height) / 2 / 50;
+  } else if (shape === "custom") {
+    basePrice = ((width + height) / 2 / 50) * 1.1;
+  } else if (shape === "transfer") {
+    basePrice = ((width + height) / 2 / 50) * 1.1;
+    const installReady = document.querySelector('input[name="installReady"]:checked').value;
+    if (installReady === "yes") {
+      basePrice *= 1.22;
+    }
+  }
+
+  let totalPrice = basePrice * quantity;
+
+  // Quantity-based additional charges
+  if (quantity <= 10) {
+    totalPrice *= 2;
+  } else if (quantity <= 25) {
+    totalPrice *= 1.5;
+  } else if (quantity < 50) {
+    totalPrice *= 1.2;
+  }
+
+  // Quantity discounts
+  if (quantity >= 2000) {
+    totalPrice *= 0.33;
+  } else if (quantity >= 1000) {
+    totalPrice *= 0.35;
+  } else if (quantity >= 500) {
+    totalPrice *= 0.4;
+  } else if (quantity >= 400) {
+    totalPrice *= 0.45;
+  } else if (quantity >= 300) {
+    totalPrice *= 0.51;
+  } else if (quantity >= 200) {
+    totalPrice *= 0.6;
+  } else if (quantity >= 100) {
+    totalPrice *= 0.75;
+  }
+
+  // Apply UV or Laminate cost if needed
+  if (applyUV) {
+    totalPrice *= 1.2;
+  }
+
+  return Math.round(totalPrice * 2) / 2;
+}
+      
+// calculate different square or circle sizes prices
+/// Calculate prices for different sizes based on quantity
+function calculatePriceForSizes() {
+  const quantities = [10, 25, 50, 100, 200, 300, 500, 1000, 2000];
+
+  // Get the current size inputs
+  const initialHeight = parseFloat(document.getElementById("height").value);
+  const initialWidth = parseFloat(document.getElementById("width").value);
+
+  // Get the selected shape
+  const shape = document.querySelector('input[name="shape"]:checked').value;
+
+  // If the initial size is square and the shape is not custom
+  if (initialHeight === initialWidth) {
+    // Calculate for square sizes
+    calculateSquareSizes(quantities, shape);
+    document.getElementById("priceComparisonSquare").style.display = "block"; // Show the square price table
+    
+  } else {
+    // Hide the square price table since the shape is custom or sizes are not square
+    document.getElementById("priceComparisonSquare").style.display = "none";
+
+    // Calculate for different aspect ratio sizes
+    calculateDifferentAspectRatioSizes(quantities, initialWidth, initialHeight, shape);
+  }
+}
+
+/*
+// Calculate prices for square or circle sizes
+function calculateSquareSizes(quantities, shape) {
+  const squareSizes = [
+    { width: 50, height: 50 },
+    { width: 80, height: 80 },
+    { width: 100, height: 100 },
+    { width: 150, height: 150 },
+    { width: 200, height: 200 },
+    { width: 300, height: 300 },
+    { width: 500, height: 500 }
+  ];
+
+  let squarePriceList = `<table class="table table-bordered"><thead><tr><th>Size (mm)</th><th>Quantity</th><th>Normal Price</th><th>UV-Rated Price</th></tr></thead><tbody>`;
+  
+  squareSizes.forEach(size => {
+    quantities.forEach(qty => {
+      let normalPrice = calculatePriceForQuantity(size.width, size.height, qty, shape, false);
+      let uvRatedPrice = calculatePriceForQuantity(size.width, size.height, qty, shape, true);
+      
+      squarePriceList += `<tr><td>${size.width} x ${size.height}</td><td>${qty}</td><td>$${normalPrice.toFixed(2)}</td><td>$${uvRatedPrice.toFixed(2)}</td></tr>`;
+    });
+  });
+
+  squarePriceList += `</tbody></table>`;
+  document.getElementById("priceComparisonSquare").innerHTML = squarePriceList;
+} */
+// Calculate prices for square or circle sizes
+function calculateSquareSizes(quantities, shape) {
+  const squareSizes = [
+    { width: 50, height: 50 },
+    { width: 80, height: 80 },
+    { width: 100, height: 100 },
+    { width: 150, height: 150 },
+    { width: 200, height: 200 },
+    { width: 300, height: 300 },
+    { width: 500, height: 500 }
+  ];
+
+  let squarePriceList = `<table class="table custom-table table-bordered table-striped"><thead><tr><th>Size (mm)</th><th>Quantity</th><th style="text-align:right;">Normal Price</th><th style="text-align:right;">UV-Rated Price</th></tr></thead><tbody>`;
+  
+  squareSizes.forEach(size => {
+    let rowspan = quantities.length; // rowspan for the same size
+    quantities.forEach((qty, index) => {
+      let normalPrice = calculatePriceForQuantity(size.width, size.height, qty, shape, false);
+      let uvRatedPrice = calculatePriceForQuantity(size.width, size.height, qty, shape, true);
+
+      if (index === 0) {
+        // Only show the size in the first row and use rowspan for merging cells
+        squarePriceList += `<tr><td rowspan="${rowspan}" style="vertical-align: middle;">${size.width} x ${size.height}</td><td>${qty}</td><td style="text-align:right;">$${normalPrice.toFixed(2)}</td><td style="text-align:right;">$${uvRatedPrice.toFixed(2)}</td></tr>`;
+      } else {
+        squarePriceList += `<tr><td>${qty}</td><td style="text-align:right;">$${normalPrice.toFixed(2)}</td><td style="text-align:right;">$${uvRatedPrice.toFixed(2)}</td></tr>`;
+      }
+    });
+  });
+
+  squarePriceList += `</tbody></table>`;
+  document.getElementById("priceComparisonSquare").innerHTML = squarePriceList;
+}
+
+
+/*
+// Calculate prices for different sizes maintaining the aspect ratio
+function calculateDifferentAspectRatioSizes(quantities, initialWidth, initialHeight, shape) {
+  if (initialWidth !== initialHeight) {
+    // Calculate the aspect ratio based on the initial size
+    const aspectRatio = initialWidth / initialHeight;
+
+    // Sizes to calculate based on given width and height
+    const sizes = [50, 80, 100, 150, 200, 300, 500];
+
+    // Create table for fixing width and calculating heights
+    let widthFixedPriceList = `<table class="table table-bordered"><thead><tr><th>Fixed Width (mm)</th><th>Height (calculated)</th><th>Quantity</th><th>Normal Price</th><th>UV-Rated Price</th></tr></thead><tbody>`;
+
+    sizes.forEach((width) => {
+      const height = Math.ceil(width / aspectRatio); // Calculate height to maintain aspect ratio
+      quantities.forEach(qty => {
+        let normalPrice = calculatePriceForQuantity(width, height, qty, shape, false); // Price for fixed width
+        let uvRatedPrice = calculatePriceForQuantity(width, height, qty, shape, true);
+        
+        widthFixedPriceList += `<tr><td>${width}</td><td>${height}</td><td>${qty}</td><td>$${normalPrice.toFixed(2)}</td><td>$${uvRatedPrice.toFixed(2)}</td></tr>`;
+      });
+    });
+
+    widthFixedPriceList += `</tbody></table>`;
+    document.getElementById("priceComparisonWidth").innerHTML = widthFixedPriceList;
+
+    // Create table for fixing height and calculating widths
+    let heightFixedPriceList = `<table class="table table-bordered"><thead><tr><th>Fixed Height (mm)</th><th>Width (calculated)</th><th>Quantity</th><th>Normal Price</th><th>UV-Rated Price</th></tr></thead><tbody>`;
+
+    sizes.forEach((height) => {
+      const width = Math.ceil(height * aspectRatio); // Calculate width to maintain aspect ratio
+      quantities.forEach(qty => {
+        let normalPrice = calculatePriceForQuantity(width, height, qty, shape, false); // Price for fixed height
+        let uvRatedPrice = calculatePriceForQuantity(width, height, qty, shape, true);
+        
+        heightFixedPriceList += `<tr><td>${height}</td><td>${width}</td><td>${qty}</td><td>$${normalPrice.toFixed(2)}</td><td>$${uvRatedPrice.toFixed(2)}</td></tr>`;
+      });
+    });
+
+    heightFixedPriceList += `</tbody></table>`;
+    document.getElementById("priceComparisonHeight").innerHTML = heightFixedPriceList;
+  }
+} */
+// Calculate prices for different sizes maintaining the aspect ratio
+function calculateDifferentAspectRatioSizes(quantities, initialWidth, initialHeight, shape) {
+  if (initialWidth !== initialHeight) {
+    // Calculate the aspect ratio based on the initial size
+    const aspectRatio = initialWidth / initialHeight;
+
+    // Sizes to calculate based on given width and height
+    const sizes = [50, 80, 100, 150, 200, 300, 500];
+
+    // Create table for fixing width and calculating heights
+    let widthFixedPriceList = `<table class="table table-bordered custom-table table-striped"><thead><tr><th>Fixed Width (mm)</th><th>Height (calculated, mm)</th><th>Quantity</th><th style="text-align:right;">Normal Price</th><th style="text-align:right;">UV-Rated Price</th></tr></thead><tbody>`;
+    
+    sizes.forEach((width) => {
+      const height = Math.ceil(width / aspectRatio); // Calculate height to maintain aspect ratio
+      let rowspan = quantities.length; // rowspan for the same size
+      quantities.forEach((qty, index) => {
+        let normalPrice = calculatePriceForQuantity(width, height, qty, shape, false); // Price for fixed width
+        let uvRatedPrice = calculatePriceForQuantity(width, height, qty, shape, true);
+
+        if (index === 0) {
+          // Only show the size in the first row and use rowspan for merging cells
+          widthFixedPriceList += `<tr><td rowspan="${rowspan}" style="vertical-align: middle;">${width}</td><td rowspan="${rowspan}" style="vertical-align: middle;">${height}</td><td>${qty}</td><td style="text-align:right;">$${normalPrice.toFixed(2)}</td><td style="text-align:right;">$${uvRatedPrice.toFixed(2)}</td></tr>`;
+        } else {
+          widthFixedPriceList += `<tr><td>${qty}</td><td style="text-align:right;">$${normalPrice.toFixed(2)}</td><td style="text-align:right;">$${uvRatedPrice.toFixed(2)}</td></tr>`;
+        }
+      });
+    });
+
+    widthFixedPriceList += `</tbody></table>`;
+    document.getElementById("priceComparisonWidth").innerHTML = widthFixedPriceList;
+
+    // Create table for fixing height and calculating widths
+    let heightFixedPriceList = `<table class="table table-bordered custom-table table-striped"><thead><tr><th>Fixed Height (mm)</th><th>Width (calculated, mm)</th><th>Quantity</th><th style="text-align:right;">Normal Price</th><th style="text-align:right;">UV-Rated Price</th></tr></thead><tbody>`;
+
+    sizes.forEach((height) => {
+      const width = Math.ceil(height * aspectRatio); // Calculate width to maintain aspect ratio
+      let rowspan = quantities.length; // rowspan for the same size
+      quantities.forEach((qty, index) => {
+        let normalPrice = calculatePriceForQuantity(width, height, qty, shape, false); // Price for fixed height
+        let uvRatedPrice = calculatePriceForQuantity(width, height, qty, shape, true);
+
+        if (index === 0) {
+          // Only show the size in the first row and use rowspan for merging cells
+          heightFixedPriceList += `<tr><td rowspan="${rowspan}" style="vertical-align: middle;">${height}</td><td rowspan="${rowspan}" style="vertical-align: middle;">${width}</td><td>${qty}</td><td style="text-align:right;">$${normalPrice.toFixed(2)}</td><td style="text-align:right;">$${uvRatedPrice.toFixed(2)}</td></tr>`;
+        } else {
+          heightFixedPriceList += `<tr><td>${qty}</td><td style="text-align:right;">$${normalPrice.toFixed(2)}</td><td style="text-align:right;">$${uvRatedPrice.toFixed(2)}</td></tr>`;
+        }
+      });
+    });
+
+    heightFixedPriceList += `</tbody></table>`;
+    document.getElementById("priceComparisonHeight").innerHTML = heightFixedPriceList;
+  }
+}
+
+
+
+// Updated function to calculate price for a specific quantity
+function calculatePriceForQuantity(width, height, quantity, shape, applyUV) {
+  let basePrice;
+
+  if (shape === "standard") {
+    basePrice = (width + height) / 2 / 50;
+  } else if (shape === "custom") {
+    basePrice = ((width + height) / 2 / 50) * 1.1; // Custom shape has a 10% higher base price
+  } else if (shape === "transfer") {
+    basePrice = ((width + height) / 2 / 50) * 1.1;
+    const installReady = document.querySelector('input[name="installReady"]:checked').value;
+    if (installReady === "yes") {
+      basePrice *= 1.22;
+    }
+  }
+
+  let totalPrice = basePrice * quantity;
+
+  // Quantity-based additional charges
+  if (quantity <= 10) {
+    totalPrice *= 2;
+  } else if (quantity <= 25) {
+    totalPrice *= 1.5;
+  } else if (quantity < 50) {
+    totalPrice *= 1.2;
+  }
+
+  // Quantity discounts
+  if (quantity >= 2000) {
+    totalPrice *= 0.33;
+  } else if (quantity >= 1000) {
+    totalPrice *= 0.35;
+  } else if (quantity >= 500) {
+    totalPrice *= 0.4;
+  } else if (quantity >= 400) {
+    totalPrice *= 0.45;
+  } else if (quantity >= 300) {
+    totalPrice *= 0.51;
+  } else if (quantity >= 200) {
+    totalPrice *= 0.6;
+  } else if (quantity >= 100) {
+    totalPrice *= 0.75;
+  }
+
+  // Apply UV or Laminate cost if needed
+  if (applyUV) {
+    totalPrice *= 1.2;
+  }
+
+  return Math.round(totalPrice * 2) / 2;
+}
+
     </script>
   </body>
 </html>
