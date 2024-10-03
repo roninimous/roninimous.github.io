@@ -19,6 +19,9 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <style>
+      .radio-inputs{
+        max-width: 100% !important;
+      }
       .neonderthaw-regular {
         font-family: "Neonderthaw", cursive;
         font-weight: 400;
@@ -246,24 +249,25 @@
             <option value="transfer">Transfer Sticker</option>
           </select>
         </div> -->
-
-        <div class="form-group col-md-5 col-6">
+        <div class="form-row" style="max-width: 800px;text-align: center;margin:0 auto;">
+        <div class="form-group col-md-5  col-4 ">
           <label for="width">Width (mm):</label>
-          <input type="number" class="form-control" id="width" value="10" />
+          <input type="number" class="form-control text-center" id="width" value="10" />
         </div>
 
-        <div class="form-group col-md-5 col-6">
+        <div class="form-group col-md-5 col-4 ">
           <label for="height">Height (mm):</label>
-          <input type="number" class="form-control" id="height" value="10" />
+          <input type="number" class="form-control text-center" id="height" value="10" />
         </div>
 
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-2 col-4  ">
           <label for="quantity">Quantity:</label>
-          <input type="number" class="form-control" id="quantity" value="50" />
+          <input type="number" class="form-control text-center" id="quantity" value="50" />
         </div>
 
-        
-        <div class="form-group col-md-12">
+      </div>
+        <div class="form-group col-md-12 text-center">
+          <label for="shape">Shape</label>
           <div id="shape" class="radio-inputs">
             <label>
               <input
@@ -378,7 +382,7 @@
         </div>
 
 
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-12 text-center">
           <label>Laminate:</label>
 
 
@@ -436,7 +440,7 @@
           </div> -->
         </div>
 
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-12 text-center">
           <label>Finish:</label>
 
 
@@ -497,12 +501,48 @@
           </div> -->
         </div>
         <!-- Install Ready for Transfer Sticker -->
-        <div
-          class="form-group col-md-12"
+        <div 
+          class="form-group col-md-12 text-center"
           id="installReadyGroup"
           style="display: none"
         >
+
+
           <label>Install Ready:</label>
+
+
+            <div id="installReady" class="radio-inputs">
+              <label>
+                <input
+                  class="radio-input"
+                  type="radio"
+                  name="installReady"
+                  value="no"
+                  id="installReadyNo"
+                  checked
+                />
+                <span class="radio-tile">
+                
+                  <span class="radio-label">No</span>
+                </span>
+              </label>
+              <label>
+                <input
+                  class="radio-input"
+                  type="radio"
+                  name="installReady"
+                  value="yes"
+                  id="installReadyYes"
+                />
+                <span class="radio-tile">
+                 
+                  <span class="radio-label">Yes</span>
+                </span>
+              </label>
+              
+            </div>
+
+          <!-- <label>Install Ready:</label>
           <div class="form-check">
             <input
               class="form-check-input"
@@ -523,17 +563,17 @@
               id="installReadyNo"
             />
             <label class="form-check-label" for="installReadyNo">No</label>
-          </div>
+          </div> -->
         </div>
 
         <!-- Complexity Level for Hard Install Ready -->
         <div
-          class="form-group col-md-12"
+          class="form-group col-md-12 text-center"
           id="complexityLevelGroup"
           style="display: none"
         >
           <label>Complexity Level:</label>
-          <div class="form-check">
+          <!-- <div class="form-check">
             <input
               class="form-check-input"
               type="radio"
@@ -557,7 +597,41 @@
             <label class="form-check-label" for="complexityLevelHard"
               >Hard <span>(+40%)</span></label
             >
-          </div>
+          </div> -->
+
+
+
+
+            <div id="complexityLevel" class="radio-inputs">
+              <label>
+                <input
+                  class="radio-input"
+                  type="radio"
+                  name="complexityLevel"
+                  value="normal"
+                  checked
+                  id="complexityLevelNormal"
+                />
+                <span class="radio-tile">
+                
+                  <span class="radio-label">Normal</span>
+                </span>
+              </label>
+              <label>
+                <input
+                  class="radio-input"
+                  type="radio"
+                  name="complexityLevel"
+                  value="hard"
+                  id="complexityLevelHard"
+                />
+                <span class="radio-tile">
+                 
+                  <span class="radio-label">Hard</span>
+                </span>
+              </label>
+              
+            </div>
         </div>
 
         <!-- Discount Inputs -->
