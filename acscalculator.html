@@ -824,13 +824,13 @@
             "(" + discount + "% Discount => $" + totalPrice.toFixed(2) + ")";
         }
 
-        //calcuate gap and stickers size taken per row of 1200mm
+        //calcuate gap and stickers size taken per row of 1280mm
         // Assuming height, width, and qty are already defined in mm
         var needed_height_per_sticker = 14 + height;
         var single_sticker_width = width + 14;
 
         // Calculate the number of stickers that fit in a row without considering gaps
-        var stickers_per_row_no_gaps = Math.floor(1200 / single_sticker_width);
+        var stickers_per_row_no_gaps = Math.floor(1280 / single_sticker_width);
 
         // Determine the number of gaps needed horizontally (after every two stickers)
         var gaps_needed_horizontal = Math.floor(
@@ -843,7 +843,7 @@
           gaps_needed_horizontal * 4;
 
         // Adjust stickers per row based on actual total width with gaps
-        while (total_width_with_gaps > 1200) {
+        while (total_width_with_gaps > 1280) {
           stickers_per_row_no_gaps--;
           gaps_needed_horizontal = Math.floor(
             (stickers_per_row_no_gaps - 1) / 2
@@ -861,15 +861,62 @@
         // Calculate the total height considering gaps only if there are more than 1 row
         var total_height_used = rows_needed * needed_height_per_sticker;
 
+        
         // Add vertical gaps if more than 1 row
         if (rows_needed > 1) {
           var gaps_needed_vertical = rows_needed - 1; // One gap between each row
           total_height_used += gaps_needed_vertical * 4;
         }
+        // Calculate cropmark dynamically: every 600mm needs +200mm cropmark
+        var cropmark_addition = 0;
+        if (total_height_used <= 600) {
+          cropmark_addition = 200;
+        } else {
+          // Calculate how many complete 600mm segments we have
+          var segments = Math.ceil(total_height_used / 600);
+          cropmark_addition = segments * 200;
+        }
+        
+        var total_height_used_with_cropmark = total_height_used + cropmark_addition;
+
+        // Calculate print time: 500mm takes 20 minutes
+        var print_time_minutes = (total_height_used / 500) * 20;
+        var print_time_hours = Math.floor(print_time_minutes / 60);
+        var print_time_remaining_minutes = Math.round(print_time_minutes % 60);
+        
+        var print_time_display = "";
+        if (print_time_hours > 0) {
+          print_time_display = `${print_time_hours}h ${print_time_remaining_minutes}m`;
+        } else {
+          print_time_display = `${print_time_remaining_minutes}m`;
+        }
+
+        // Calculate cut time: 500mm takes 7 minutes
+        var cut_time_minutes = (total_height_used / 500) * 7;
+        var cut_time_hours = Math.floor(cut_time_minutes / 60);
+        var cut_time_remaining_minutes = Math.round(cut_time_minutes % 60);
+        
+        var cut_time_display = "";
+        if (cut_time_hours > 0) {
+          cut_time_display = `${cut_time_hours}h ${cut_time_remaining_minutes}m`;
+        } else {
+          cut_time_display = `${cut_time_remaining_minutes}m`;
+        }
+
+        var finish_print_laminate_cut_time = print_time_minutes + cut_time_minutes +5; //5 minutes for other processes
+        var finish_print_laminate_cut_time_hours = Math.floor(finish_print_laminate_cut_time / 60);
+        var finish_print_laminate_cut_time_remaining_minutes = Math.round(finish_print_laminate_cut_time % 60);
+        
+        var finish_print_laminate_cut_time_display = "";
+        if (finish_print_laminate_cut_time_hours > 0) {
+          finish_print_laminate_cut_time_display = `${finish_print_laminate_cut_time_hours}h ${finish_print_laminate_cut_time_remaining_minutes}m`;
+        } else {
+          finish_print_laminate_cut_time_display = `${finish_print_laminate_cut_time_remaining_minutes}m`;
+        }
 
         document.getElementById(
           "printable"
-        ).textContent = `Printable Media Width: 1200mm. Stickers per row: ${sticker_per_row}. Least media height used per row: ${needed_height_per_sticker}mm. Total height used for ${quantity} stickers: ${total_height_used}mm`;
+        ).textContent = `Printable Media Width: 1280mm. Stickers per row: ${sticker_per_row}. Least media height used per row: ${needed_height_per_sticker}mm. Total height used for ${quantity} stickers: ${total_height_used}mm. Total sticker sheet height: ${total_height_used_with_cropmark}mm. Estimated print time: ${print_time_display}. Estimated cut time: ${cut_time_display}. Estimated finish time: ${finish_print_laminate_cut_time_display}`;
 
         document.getElementById(
           "result"
