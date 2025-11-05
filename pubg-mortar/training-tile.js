@@ -60,6 +60,7 @@ function drawRadius(point) {
     radiusCircle = L.circle(point, {
         radius: 711.25,
         color: 'red',
+        weight: 1,
         fillOpacity: 0.1
     }).addTo(map);
 
@@ -69,8 +70,8 @@ function drawRadius(point) {
     for (let i = 102; i <= 700; i += 101.25) {
         const circle = L.circle(point, {
             radius: i,
-            color: 'black',
-            weight: 1,
+            color: 'orange',
+            weight: 0.5,
             fillOpacity: 0
         }).addTo(map);
         radiusLines.push(circle);

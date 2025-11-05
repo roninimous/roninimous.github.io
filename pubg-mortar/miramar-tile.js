@@ -42,8 +42,8 @@ function calculateDistance(point1, point2) {
     const dx = point2[0] - point1[0];
     const dy = point2[1] - point1[1];
     const distance = Math.sqrt(dx * dx + dy * dy); // Distance in pixels
-    const meters = distance * 8 / 8120; // Convert pixels to kilometers and then to meters
-    return meters * 1000; // Convert km to meters
+    const meters = distance * 8 / 8100; // Convert pixels to kilometers and then to meters
+    return Math.floor(meters * 1000); // Convert km to meters
 }
 
 // Function to find the closest and second closest numbers in the array to the calculated distance
@@ -58,19 +58,20 @@ function drawRadius(point) {
         map.removeLayer(radiusCircle);
     }
     radiusCircle = L.circle(point, {
-        radius: 700,
+        radius: 711.25,
         color: 'red',
+        weight: 1,
         fillOpacity: 0.1
     }).addTo(map);
 
     radiusLines.forEach(line => map.removeLayer(line));
     radiusLines = [];
 
-    for (let i = 100; i <= 700; i += 104) {
+    for (let i = 102; i <= 700; i += 101.25) {
         const circle = L.circle(point, {
             radius: i,
-            color: 'black',
-            weight: 1,
+            color: 'orange',
+            weight: 0.5,
             fillOpacity: 0
         }).addTo(map);
         radiusLines.push(circle);
@@ -127,7 +128,7 @@ map.on('click', function(e) {
             icon: L.divIcon({
                 className: 'distance-label',
                 html: `<div style="font-size:20px;font-weight:600;color:limegreen;text-shadow:1px 1px 1px black;width:100% ;white-space: nowrap;">
-                        ${distance.toFixed(2)}M<br>Closest: ${closestNumber}M<br>Second Closest: ${secondClosestNumber}M</div>`
+                        ${distance}M<br>Closest: ${closestNumber}M<br>Second Closest: ${secondClosestNumber}M</div>`
             })
         }).addTo(map);
 
