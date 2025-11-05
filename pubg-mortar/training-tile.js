@@ -43,7 +43,7 @@ function calculateDistance(point1, point2) {
     const dy = point2[1] - point1[1];
     const distance = Math.sqrt(dx * dx + dy * dy); // Distance in pixels
     const meters = distance * 2 / 2027; // Convert pixels to kilometers and then to meters (2km map)
-    return meters * 1000; // Convert km to meters
+    return Math.floor(meters * 1000); // Convert km to meters
 }
 
 // Function to find the closest and second closest numbers in the array to the calculated distance
@@ -127,7 +127,7 @@ map.on('click', function(e) {
             icon: L.divIcon({
                 className: 'distance-label',
                 html: `<div style="font-size:20px;font-weight:600;color:limegreen;text-shadow:1px 1px 1px black;width:100% ;white-space: nowrap;">
-                        ${distance.toFixed(2)}M<br>Closest: ${closestNumber}M<br>Second Closest: ${secondClosestNumber}M</div>`
+                        ${distance}M<br>Closest: ${closestNumber}M<br>Second Closest: ${secondClosestNumber}M</div>`
             })
         }).addTo(map);
 
