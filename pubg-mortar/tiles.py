@@ -70,8 +70,8 @@ def generate_tiles(input_image, output_folder, max_zoom=5, tile_size=256):
 if __name__ == "__main__":
     # For training map (2x2 km)
     generate_tiles(
-        input_image="erangel.png",
-        output_folder="erangel-tiles",
+        input_image="taego.png",
+        output_folder="taego-tiles",
         max_zoom=5,
         tile_size=256
     )

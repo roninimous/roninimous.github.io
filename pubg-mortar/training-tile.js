@@ -33,6 +33,10 @@ let polyline = null;
 let distanceMarker = null;
 let radiusCircle = null;
 let radiusLines = [];
+let endPointCircle = null;
+let closestCircle = null;
+let secondClosestCircle = null;
+let thirdClosestCircle = null;
 
 // Array of given numbers
 const numberArray = [121,133,145,157,169,181,193,204,216,228,239,250,262,273,284,295,307,317,328,339,350,360,371,381,391,401,411,421,431,440,450,459,468,477,486,495,503,512,520,528,536,544,551,559,566,573,580,587,593,600,606,612,618,624,629,634,639,644,649,653,658,662,666,669,673,676,679,682,685,687,689,691,693,695,696,697,698,699,699.25,699.5,699.75,700];
@@ -46,10 +50,10 @@ function calculateDistance(point1, point2) {
     return Math.floor(meters * 1000); // Convert km to meters
 }
 
-// Function to find the closest and second closest numbers in the array to the calculated distance
+// Function to find the closest, second closest, and third closest numbers in the array to the calculated distance
 function findClosestNumbers(target, array) {
     const sortedArray = array.slice().sort((a, b) => Math.abs(a - target) - Math.abs(b - target));
-    return [sortedArray[0], sortedArray[1]];
+    return [sortedArray[0], sortedArray[1], sortedArray[2]];
 }
 
 // Function to draw radius circle and lines
@@ -87,6 +91,35 @@ map.on('click', function(e) {
         if (startMarker) {
             map.removeLayer(startMarker);
         }
+        // Remove any previous endpoint marker and circle when starting a new measurement
+        if (endMarker) {
+            map.removeLayer(endMarker);
+            endMarker = null;
+        }
+        if (endPointCircle) {
+            map.removeLayer(endPointCircle);
+            endPointCircle = null;
+        }
+        if (polyline) {
+            map.removeLayer(polyline);
+            polyline = null;
+        }
+        if (distanceMarker) {
+            map.removeLayer(distanceMarker);
+            distanceMarker = null;
+        }
+        if (closestCircle) {
+            map.removeLayer(closestCircle);
+            closestCircle = null;
+        }
+        if (secondClosestCircle) {
+            map.removeLayer(secondClosestCircle);
+            secondClosestCircle = null;
+        }
+        if (thirdClosestCircle) {
+            map.removeLayer(thirdClosestCircle);
+            thirdClosestCircle = null;
+        }
         startPoint = point;
         startMarker = L.marker(startPoint).addTo(map);
         drawRadius(startPoint);
@@ -95,6 +128,21 @@ map.on('click', function(e) {
         if (distance > 700) {
             if (startMarker) {
                 map.removeLayer(startMarker);
+            }
+            if (endMarker) {
+                map.removeLayer(endMarker);
+            }
+            if (endPointCircle) {
+                map.removeLayer(endPointCircle);
+            }
+            if (closestCircle) {
+                map.removeLayer(closestCircle);
+            }
+            if (secondClosestCircle) {
+                map.removeLayer(secondClosestCircle);
+            }
+            if (thirdClosestCircle) {
+                map.removeLayer(thirdClosestCircle);
             }
             if (radiusCircle) {
                 map.removeLayer(radiusCircle);
@@ -108,10 +156,66 @@ map.on('click', function(e) {
         if (endMarker) {
             map.removeLayer(endMarker);
         }
+        if (endPointCircle) {
+            map.removeLayer(endPointCircle);
+        }
         endPoint = point;
         endMarker = L.marker(endPoint).addTo(map);
+        
+        // Draw 5M diameter circle (2.5M radius) around the endpoint
+        // Map coordinates: 2000 units = 2000 meters (2km), so 1 unit = 1 meter
+        endPointCircle = L.circle(endPoint, {
+            radius: 7, // 2.5 meters radius = 5 meters diameter
+            color: 'yellow',
+            weight: 3,
+            fillOpacity: 0.3,
+            fillColor: 'yellow',
+            opacity: 0.8
+        }).addTo(map);
 
-        const [closestNumber, secondClosestNumber] = findClosestNumbers(distance, numberArray);
+        const [closestNumber, secondClosestNumber, thirdClosestNumber] = findClosestNumbers(distance, numberArray);
+
+        // Draw circles for closest, second closest, and third closest distances around the start point
+        // Remove any existing circles first
+        if (closestCircle) {
+            map.removeLayer(closestCircle);
+        }
+        if (secondClosestCircle) {
+            map.removeLayer(secondClosestCircle);
+        }
+        if (thirdClosestCircle) {
+            map.removeLayer(thirdClosestCircle);
+        }
+        
+        // Draw closest distance circle
+        closestCircle = L.circle(startPoint, {
+            radius: closestNumber, // Map coordinates: 1 unit = 1 meter
+            color: 'lime',
+            weight: 2,
+            fillOpacity: 0.1,
+            fillColor: 'lime',
+            opacity: 0.7
+        }).addTo(map);
+        
+        // Draw second closest distance circle
+        secondClosestCircle = L.circle(startPoint, {
+            radius: secondClosestNumber, // Map coordinates: 1 unit = 1 meter
+            color: 'orange',
+            weight: 2,
+            fillOpacity: 0.1,
+            fillColor: 'orange',
+            opacity: 0.7
+        }).addTo(map);
+        
+        // Draw third closest distance circle
+        thirdClosestCircle = L.circle(startPoint, {
+            radius: thirdClosestNumber, // Map coordinates: 1 unit = 1 meter
+            color: 'cyan',
+            weight: 2,
+            fillOpacity: 0.1,
+            fillColor: 'cyan',
+            opacity: 0.7
+        }).addTo(map);
 
         // Draw the line
         if (polyline) {
@@ -127,18 +231,18 @@ map.on('click', function(e) {
         distanceMarker = L.marker(midPoint, {
             icon: L.divIcon({
                 className: 'distance-label',
-                html: `<div style="font-size:20px;font-weight:600;color:limegreen;text-shadow:1px 1px 1px black;width:100% ;white-space: nowrap;">
-                        ${distance}M<br>Closest: ${closestNumber}M<br>Second Closest: ${secondClosestNumber}M</div>`
+                html: `<div style="font-size:20px;font-weight:600;color:limegreen;text-shadow:1px 1px 1px black;width:100% ;white-space: nowrap;">Setting 1: ${closestNumber}M</div><div style="font-size:20px;font-weight:600;color:orange;text-shadow:1px 1px 1px black;width:100% ;white-space: nowrap;">Setting 2: ${secondClosestNumber}M</div><div style="font-size:20px;font-weight:600;color:cyan;text-shadow:1px 1px 1px black;width:100% ;white-space: nowrap;">Setting 3: ${thirdClosestNumber}M</div>`
             })
         }).addTo(map);
 
-        // Reset points for next calculation
+        // Reset points for next calculation (but keep endMarker and circle visible)
         startPoint = null;
         endPoint = null;
         if (startMarker) {
             map.removeLayer(startMarker);
             startMarker = null;
         }
+        // Keep endMarker and endPointCircle visible - they will be removed when a new start point is clicked
         if (radiusCircle) {
             map.removeLayer(radiusCircle);
         }
@@ -158,6 +262,10 @@ document.addEventListener('keypress', function(e) {
             map.removeLayer(endMarker);
             endMarker = null;
         }
+        if (endPointCircle) {
+            map.removeLayer(endPointCircle);
+            endPointCircle = null;
+        }
         if (polyline) {
             map.removeLayer(polyline);
             polyline = null;
@@ -169,6 +277,18 @@ document.addEventListener('keypress', function(e) {
         if (radiusCircle) {
             map.removeLayer(radiusCircle);
             radiusCircle = null;
+        }
+        if (closestCircle) {
+            map.removeLayer(closestCircle);
+            closestCircle = null;
+        }
+        if (secondClosestCircle) {
+            map.removeLayer(secondClosestCircle);
+            secondClosestCircle = null;
+        }
+        if (thirdClosestCircle) {
+            map.removeLayer(thirdClosestCircle);
+            thirdClosestCircle = null;
         }
         radiusLines.forEach(line => map.removeLayer(line));
         radiusLines = [];
